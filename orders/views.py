@@ -4,3 +4,6 @@ from django.shortcuts import render
 # Create your views here.
 def index(request):
     return HttpResponse("Project 3: TODO")
+
+def register(request):
+  return render(request, "pizza/register.html")
