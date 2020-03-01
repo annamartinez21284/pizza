@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
+from django.conf import settings
 
 # Used by 2 classes, hence defined outside
 LARGE_REGULAR = 'LREG'
@@ -10,9 +12,8 @@ SIZESTYLE_CHOICES = ( (LARGE_REGULAR, 'Large Regular'), (SMALL_REGULAR, 'Small R
 
 class Order(models.Model):
   order_id = models.AutoField(primary_key=True)
-  # TBC if Django makes this table for me & if so how to access it
-  customer = models.CharField(max_length=64)
-  #customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING, related_name="active_customer")#can ditch rel name
+  #https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#referencing-the-user-model
+  customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name="active_customer")#can ditch rel name
   time = models.DateTimeField()
   total = models.DecimalField(max_digits=7, decimal_places=2)
 
