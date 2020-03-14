@@ -42,7 +42,7 @@ class Platter(models.Model):
     return f"{self.name}"
 
 # populate with all pizza toppings
-class Toppings(models.Model):
+class Topping(models.Model):
   name = models.CharField(max_length=64, primary_key=True)
 
   def __str__(self):
@@ -79,11 +79,11 @@ class PizzaOrder(models.Model):
   # need full_clean below? https://stackoverflow.com/questions/849142/how-to-limit-the-maximum-value-of-a-numeric-field-in-a-django-model
   topping_count = models.IntegerField(default=0, validators=[MaxValueValidator(5), MinValueValidator(0)])
   # null=true unnecessary for CharField since always '' stored? Also when ForeignKey?
-  topping_1 = models.ForeignKey(Toppings, on_delete=models.DO_NOTHING, related_name="topping_1", blank=True, null=True)
-  topping_2 = models.ForeignKey(Toppings, on_delete=models.DO_NOTHING, related_name="topping_2", blank=True, null=True)
-  topping_3 = models.ForeignKey(Toppings, on_delete=models.DO_NOTHING, related_name="topping_3", blank=True, null=True)
-  topping_4 = models.ForeignKey(Toppings, on_delete=models.DO_NOTHING, related_name="topping_4", blank=True, null=True)
-  topping_5 = models.ForeignKey(Toppings, on_delete=models.DO_NOTHING, related_name="topping_5", blank=True, null=True)
+  topping_1 = models.ForeignKey(Topping, on_delete=models.DO_NOTHING, related_name="topping_1", blank=True, null=True)
+  topping_2 = models.ForeignKey(Topping, on_delete=models.DO_NOTHING, related_name="topping_2", blank=True, null=True)
+  topping_3 = models.ForeignKey(Topping, on_delete=models.DO_NOTHING, related_name="topping_3", blank=True, null=True)
+  topping_4 = models.ForeignKey(Topping, on_delete=models.DO_NOTHING, related_name="topping_4", blank=True, null=True)
+  topping_5 = models.ForeignKey(Topping, on_delete=models.DO_NOTHING, related_name="topping_5", blank=True, null=True)
 
   def __str__(self):
     toppings = []

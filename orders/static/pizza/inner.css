@@ -1,0 +1,56 @@
+input[type=number]{
+    width: 60px;
+}
+
+h1,h2 {text-align: center; font-family: Verdana,Arial,Helvetica,sans-serif; margin: 0;}
+h1 {margin-bottom: 0.5em; margin-top: 0.5em;}
+
+div.callout { font-family: Verdana,Arial,Helvetica,sans-serif;
+font-size: 1.25em;  text-align: center;
+border: medium solid #be0027;
+background-color: olive;
+margin: 0.5em; padding: 0.5em;}
+
+td {width:auto;
+    padding-right: 0.7em;
+}
+
+div.callout ul {font-size: 80%; text-align: left; }
+
+.price {
+  font-size: 18px;
+  padding-right: -5px;
+}
+
+.ps {
+  width: : 150px;
+}
+
+td {vertical-align: top}
+#menu {text-align: center; }
+
+#menu ul {list-style: none;
+background-color: olive;
+padding-top: 0.5em;
+padding-bottom: 2px;
+margin-bottom: 0;
+font-weight: bold;
+font-family: Arial,Verdana,Helvetica,sans-serif;
+border-bottom: 1px solid black; }
+
+#menu ul li { display: inline;
+list-style: none;
+display: inline;
+margin: 0;}
+
+#menu ul li a {padding: 0.2em 0.5em 0.2em 0.5em;
+font-size: 80%;
+color: #be0027;
+font-family: Verdana,Arial,Helvetica,sans-serif;
+font-weight: bold;
+border-left: 1px solid black;
+border-right: 1px solid black;
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+margin-left: 0.5em; margin-right: 0.5em; background-color: olive;
+text-decoration: none;}

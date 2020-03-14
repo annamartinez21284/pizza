@@ -1,0 +1,366 @@
+{% extends "pizza/innerlayout.html" %}
+
+
+{% block body %}
+<table width=100%>
+<tbody>
+    <tr>
+    <td >
+    	<div class="callout">
+    	<h2>Step 1: Select from Our Menu</h2>
+      <br>
+
+      <table class="foodmenu" >
+
+        <tr>
+          <th colspan="1"></th>
+  	      <th colspan="4"><a name="regular_pizza">Regular Pizza</a></th>
+          <th colspan="4"><a name="regular_pizza">Sicilian Pizza</a></th>
+        </tr>
+
+      	<tr>
+      		<td></td>
+      		<td>Small</td>
+          <td>add</td>
+      		<td>Large</td>
+          <td>add</td>
+          <td>Small</td>
+          <td>add</td>
+          <td>Large</td>
+          <td>add</td>
+      	</tr>
+
+        <tr>
+      		<td>Cheese</td>
+      		<td class="price">12.70</td>
+          <td><input type="number" min="0" max="10" step="1" size="2"></td>
+      		<td class="price">17.95</td>
+          <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+          <td class="price">24.45</td>
+          <td><input type="number" min="0" max="10" step="1" size="2"></td>
+      		<td class="price">38.70</td>
+          <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+       </tr>
+
+       <tr>
+      		<td>1 topping</td>
+      		<td class="price">13.70</td>
+          <td><input type="number" min="0" max="10" step="1" size="2"></td>
+      		<td class="price">19.95</td>
+          <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+          <td class="price">26.45</td>
+          <td><input type="number" min="0" max="10" step="1" size="2"></td>
+          <td class="price">40.70</td>
+          <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+        </tr>
+         <tr>
+        		<td >2 toppings</td>
+        		<td class="price">15.20</td>
+            <td><input type="number" min="0" max="10" step="1" size="2"></td>
+        		<td class="price">21.95</td>
+            <td><input type="number" min="0" max="10" step="1" size="2"></td>
+            <td class="price">28.45</td>
+            <td><input type="number" min="0" max="10" step="1" size="2"></td>
+            <td class="price">42.70</td>
+            <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+        </tr>
+        <tr>
+        		<td>3 toppings</td>
+        		<td class="price">16.20</td>
+            <td><input type="number" min="0" max="10" step="1" size="2"></td>
+        		<td class="price">23.95</td>
+            <td><input type="number" min="0" max="10" step="1" size="2"></td>
+            <td class="price">29.45</td>
+            <td><input type="number" min="0" max="10" step="1" size="2"></td>
+            <td class="price">44.70</td>
+            <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+        </tr>
+        <tr>
+        		<td>Special (max. 5 toppings)</td>
+        		<td class="price" >17.75</td>
+            <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+        		<td class="price">25.95</td>
+            <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+            <td class="price">30.45</td>
+            <td><input type="number" min="0" max="10" step="1" size="2"></td>
+            <td class="price">45.70</td>
+            <td ><input type="number" min="0" max="10" step="1" size="2"></td>
+        </tr>
+    	</table>
+    <br>
+
+  	  <table width="100%" class="toppingmenu">
+    	    <tbody>
+    	      <tr>
+    		<th colspan="2"><a name="toppings">Pizza toppings (Select in next step)</a></th>
+    	      </tr>
+            <tr>
+    		<td >Pepperoni, Sausage, Mushrooms, Onions, Ham, Canadian Bacon, Pineapple, Eggplant, Tomato & Basil,
+          Green Peppers, Hamburger, Spinach, Artichoke, Buffalo Chicken, Barbecue Chicken, Anchovies, Black Olives, Fresh Garlic, Zucchini</td>
+    	      </tr>
+          </tbody>
+    	</table>
+    <br>
+
+  <table width="100%" class="foodmenu">
+	    <tbody>
+    <tr>
+    		<th colspan="5"><a name="subs">Subs</a></th>
+    </tr>
+    <tr>
+    		<td></td>
+    		<td>Small</td>
+        <td>add</td>
+    		<td>Large</td>
+        <td>add</td>
+  	</tr>
+    <tr>
+  		<td style="text-align: left;" >Cheese</td>
+  		<td class="price">6.50</td>
+      <td><input type="number" min="0" max="10" step="1" size="2"></td>
+  		<td class="price">7.95</td>
+      <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+  		<td style="text-align: left;" >Italian</td>
+  		<td class="price">6.50</td>
+      <td><input type="number" min="0" max="10" step="1" size="2"></td>
+  		<td class="price">7.95</td>
+      <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+  		<td style="text-align: left;" >Ham + Cheese</td>
+  		<td class="price">6.50</td>
+      <td><input type="number" min="0" max="10" step="1" size="2"></td>
+  		<td class="price">7.95</td>
+      <td><input type="number" min="0" max="10" step="1" size="2"></td>
+  	</tr>
+    <tr>
+  		<td style="text-align: left;" >Meatball</td>
+  		<td class="price">6.50</td>
+      <td><input type="number" min="0" max="10" step="1" size="2"></td>
+  		<td class="price">7.95</td>
+      <td><input type="number" min="0" max="10" step="1" size="2"></td>
+  	</tr>
+    <tr>
+    		<td style="text-align: left;" >Tuna</td>
+    		<td class="price">6.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">7.95</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Turkey</td>
+    		<td class="price">7.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">8.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Chicken Parmigiana</td>
+    		<td class="price">7.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">8.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Eggplant Parmigiana</td>
+    		<td class="price">6.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">7.95</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Steak</td>
+    		<td class="price">6.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">7.95</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Steak + Cheese</td>
+    		<td class="price">6.95</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">8.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Sausage, Peppers &amp; Onions</td>
+    		<td ></td><td ></td>
+    		<td class="price">8.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Hamburger</td>
+    		<td class="price">4.60</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">6.95</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Cheeseburger</td>
+    		<td class="price">5.10</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">7.45</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Fried Chicken</td>
+    		<td class="price">6.95</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price"class="price">8.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+    <tr>
+    		<td style="text-align: left;" >Veggie</td>
+    		<td class="price">6.95</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    		<td class="price">8.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    </tr>
+
+
+      </tbody>
+  </table>
+
+  <br>
+<table width="100%" class="toppingmenu">
+    <tbody>
+      <tr>
+  <th colspan="2"><a name="toppings">Sub Extras (+$0.50 - Select in next step)</a></th>
+      </tr>
+      <tr>
+  <td >Mushrooms, Green Peppers, Onions, Extra Cheese</td>
+      </tr>
+    </tbody>
+</table>
+  <br>
+
+	    <table width="100%" class="foodmenu">
+    	    <tbody>
+    	      <tr>
+    		<th colspan="4"><a name="pasta">Pasta</a></th>
+    	      </tr>
+    	      <tr>
+    		<td></td>
+    		<td> </td>
+    	      </tr>
+            <tr>
+              <td></td><td></td><td> add</td>
+            </tr>
+
+            <tr>
+    		<td class="ps" style="text-align: left;" >Baked Ziti w/Mozzarella</td>
+    		<td class="price">6.50</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td class="ps" style="text-align: left;" >Baked Ziti w/Meatballs</td>
+    		<td class="price">8.75</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td class="ps" style="text-align: left;" >Baked Ziti w/Chicken</td>
+    		<td class="price">9.75</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	    </tbody>
+      </table>
+
+	    <table width="100%" class="foodmenu">
+    	    <tbody>
+    	      <tr>
+    		<th colspan="4"><a name="salad">Salads</a></th>
+    	      </tr>
+    	      <tr>
+    		<td></td>
+    		<td></td>
+    	      </tr>
+            <tr>
+              <td></td><td></td><td> add</td>
+            </tr>
+
+            <tr>
+    		<td class="ps" style="text-align: left;" >Garden Salad</td>
+    		<td class="price">6.25</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td class="ps" style="text-align: left;" >Greek Salad</td>
+    		<td class="price">8.25</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td class="ps" style="text-align: left;" >Antipasto</td>
+    		<td class="price">8.25</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td class="ps" style="text-align: left;" >Salad w/Tuna</td>
+    		<td class="price">8.25</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	    </tbody>
+      </table>
+
+	  <table width="100%" class="foodmenu">
+    	    <tbody>
+    	      <tr>
+    		      <th colspan="5"><a name="dinner">Dinner Platters</a></th>
+    	      </tr>
+            <tr>
+            <td></td>
+            <td>Small</td>
+            <td>add</td>
+            <td>Large</td>
+            <td>add</td>
+            </tr>
+      <tr>
+    		<td style="text-align: left;" >Garden Salad</td>
+    		<td class="price">40.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+        <td class="price">65.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td style="text-align: left;" >Greek Salad</td>
+        <td class="price">50.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+        <td class="price">75.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td style="text-align: left;" >Antipasto</td>
+        <td class="price">50.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+        <td class="price">75.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td style="text-align: left;" >Baked Ziti</td>
+        <td class="price">40.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+        <td class="price">65.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td style="text-align: left;" >Meatball Parm</td>
+        <td class="price">50.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+        <td class="price">75.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	      <tr>
+    		<td style="text-align: left;" >Chicken Parm</td>
+        <td class="price">55.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+        <td class="price">85.00</td>
+        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+    	      </tr>	    </tbody>
+    </table>
+    <br>
+
+    <div class="internalmenunav">
+    <a href="#regular_pizza">Regular Pizza</a> |
+    <a href="#sicilian_pizza">Sicilian Pizza</a> |
+    <a href="#toppings">Toppings</a> |
+    <a href="#subs">Subs</a> |
+    <a href="#pasta">Pasta</a> |
+    <a href="#salad">Salad</a> |
+    <a href="#dinner">Dinner Platters</a>
+    </div>
+
+  </div>
+  </td>
+  </tr>
+</tbody>
+</table>
+{% endblock %}

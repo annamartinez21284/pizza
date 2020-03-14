@@ -6,7 +6,7 @@ Register for Pizza
 
 {% block body %}
 
-<form action="{% url 'register_client' %}" class="form-signin" method="post">
+<form action="{% url 'register_client' %}" class="form-signin" method="post" autocomplete="false">
   {% csrf_token %}
   {% load static %}
   <img class="mb-4" src="{% static 'pizza/pizza.jpg' %}" alt="" width="72" height="72">
