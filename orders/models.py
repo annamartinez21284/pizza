@@ -35,11 +35,11 @@ class PastaSalad(models.Model):
   def __str__(self):
     return f"{self.name}, price: ${self.price}"
 
-class Platter(models.Model):
-  name = models.CharField(max_length=64, primary_key=True)
-
-  def __str__(self):
-    return f"{self.name}"
+#class Platter(models.Model):
+#  name = models.CharField(max_length=64, primary_key=True)
+#
+#  def __str__(self):
+#    return f"{self.name}"
 
 # populate with all pizza toppings
 class Topping(models.Model):
@@ -93,10 +93,11 @@ class PizzaOrder(models.Model):
     return f"Pizza Order: Item {self.item_id}, Size & Style: {self.sizestyle}, Toppings: {self.topping_count}: {toppings}"
 
 
-class PlatterPrice(models.Model):
-  name = models.ForeignKey(Platter, on_delete=models.CASCADE, primary_key=True, related_name="platter_name")
-  price_large = models.DecimalField(max_digits=6, decimal_places=2)
-  price_small = models.DecimalField(max_digits=6, decimal_places=2)
+class Platter(models.Model):
+  #name = models.ForeignKey(Platter, on_delete=models.CASCADE, primary_key=True, related_name="platter_name")
+  name = models.CharField(max_length=64, primary_key=True)
+  price_large = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+  price_small = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
   def __str__(self):
     return f"{self.name} price: Large ${self.price_large}, Small ${self.price_small}"

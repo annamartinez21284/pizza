@@ -10,7 +10,7 @@
     <title>{% block title %} {% endblock %}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
-
+    <script src="{% static pizza/order.js %}"></script>
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -19,8 +19,14 @@
     <link href="{% static 'pizza/inner.css' %}" rel="stylesheet">
   </head>
 
+<div align="right">
+<a class="nav-link" href="{% url 'logout' %}" name="logout"> <b> Logout</b></a>
+</div>
+
   <body class="text-center">
+
     {% block body %}
+
 
 
     {% endblock %}

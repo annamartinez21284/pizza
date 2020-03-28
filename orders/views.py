@@ -5,15 +5,30 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from .forms import RegisterForm, SigninForm
+from .models import *
 
 #TODO: Logout link in index.html, JS email vaildation
 
 # Create your views here.
 @login_required
 def index(request):
-    return render(request, "pizza/index.html")
+  subs = Sub.objects.select_related('price_caegory')
+  context = {
+  # problem: SM and reg always have to be cheaper than sicilian...
+  "0top": PizzaPrice.objects.filter(Q(topping_count=0)).order_by('price'),
+  "1top": PizzaPrice.objects.filter(Q(topping_count=1)).order_by('price'),
+  "2top": PizzaPrice.objects.filter(Q(topping_count=2)).order_by('price'),
+  "3top": PizzaPrice.objects.filter(Q(topping_count=3)).order_by('price'),
+  "5top": PizzaPrice.objects.filter(Q(topping_count=5)).order_by('price'),
+  "toppings": Topping.objects.all(),
+  "subs": Sub.objects.select_related('price_category'),
+  "pastasalads": PastaSalad.objects.all(),
+  "platters": Platter.objects.all()
+  }
+  return render(request, "pizza/index.html", context)
 
 def logout_view(request):
   logout(request)
@@ -21,7 +36,6 @@ def logout_view(request):
   return render(request, "pizza/signin.html",  {'form': form})
 
 def sign_in(request):
-
   if request.method == "POST":
     #creates a SigninForm instance and populates with data from request “binding data to the form” (it is now a bound form)
     form = SigninForm(request.POST)
