@@ -1,0 +1,18 @@
+{% extends "pizza/innerlayout.html" %}
+
+
+{% block body %}
+<table width=100%>
+  <tr>
+    {% for d in items %}
+
+      <td> {{d.name}}, Price: <div class="price">{{d.price}}</div>  - Amount: {{d.amount}} Total: {{d.total}} </td>
+
+
+    {% endfor %}
+
+  </tr>
+
+</table>
+
+{% endblock %}

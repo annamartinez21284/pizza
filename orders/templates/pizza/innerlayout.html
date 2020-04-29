@@ -10,17 +10,22 @@
     <title>{% block title %} {% endblock %}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
-    <script src="{% static pizza/order.js %}"></script>
+    {% load static %}
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    {% load static %}
+
     <link href="{% static 'pizza/inner.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    {% block head %}
+    {% endblock %}
+
   </head>
 
 <div align="right">
-<a class="nav-link" href="{% url 'logout' %}" name="logout"> <b> Logout</b></a>
+<a href="{% url 'logout' %}" name="logout"> <b> Logout - FIX MARGIN</b></a>
 </div>
 
   <body class="text-center">
@@ -30,6 +35,10 @@
 
 
     {% endblock %}
+
+
+
+
 
   </body>
 </html>
