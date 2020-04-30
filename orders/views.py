@@ -43,66 +43,42 @@ def index(request):
 
 @login_required
 def prebasket(request):
+
+  if request.session["prebasket"]:
+    pass # implement later if needed
+
   q_preseletion = {}
+  preselection = []
   if request.method == 'POST':
-  # below returns an immutable QueryDict (sent as JSON) of items and amount pre-selected by user, hence copy() at end or dict()
+  # "request.POST" returns an immutable QueryDict (sent as JSON) of items and amount pre-selected by user, hence copy() at end or dict()
     q_preselection = request.POST.dict()
+    preselection = json.loads(q_preselection["preselection"])
     print("THIS IS THE POST REquest")
   #print("Q_PRESELECTION[preselection]: ", q_preselection["preselection"]) # prints OK
   if request.method == 'GET':
     q_preselection = request.GET.dict()
     print("THIS IS THE GET REQUEST - shouldn t come out now")
+    return render(request, "pizza/prebasket.html")
 
-  print("QPRESELECTION THERE? ", q_preselection) # seems to come empty - hence key error , but also empty when localStorage not emppty(i.e. GET request)...weird
-  for key, value in q_preselection.items():
-    print("PRINTING KEY AND VAL")
-    print (key, value)
-
-  #print("JSON LOADS: ", json.loads(q_preselection["preselection"]))
-
-  # convert JSON to Python Dict with json.loads()
-  preselection = json.loads(q_preselection["preselection"])
-  try:
-    del preselection[""]
-    del preselection["csrfmiddlewaretoken"] # redundant now
-  except KeyError:
-    pass
-  #preselection = qpreselection.dict()["preselection"]
-  print(f"PRESELECTION NOX CONVERTED TO:", preselection)
-  # declare empty list to add info to
-  items = []
-  # iterate thru menu items (ids) in user's selection
-  for id in preselection:
-    print(f"ID IS:", id)
-    dish = Dish.objects.get(pk=id)
-    print(f"Dish is:", dish)
-    print(f"Class name is:", dish.__class__.__name__)
-    item = {
-    "id": dish.id,
-    "name": dish.name,
-    "size": dish.size,
-    "price": ("%.2f" % float(dish.price)),
-    "amount": preselection[id],
-    "total": ("%.2f" % (int(preselection[id]) * float(dish.price)))
-    }
-
-    # if dish is a pizza - no obvs easy way to get object's child class in Django apparently
-    try:
-      item["style"] = dish.style
-      item["topping_count"] = dish.topping_count
-    except AttributeError:
-      pass
-    items.append(item)
+  print("PRESELECTION THERE? ", preselection) # seems to come empty - hence key error , but also empty when localStorage not emppty(i.e. GET request)...weird
+  # preselection is a list of dicts
+  for item in preselection:
+    # p is a dict
+    print(f"PRINTING item:", item)
+    print(f"PRINTING name:", item["name"])
+    #dish = Dish.objects.get(pk=item["id"])
+    price = ("%.2f" % float(item["price"]))
+    total = ("%.2f" % float(item["total"]))
+    item["price"] = price
+    item["total"] = total
     print(f"Item is:", item)
+
   # store preselected items in session - check later if needed/utilised at all
-  request.session["prebasket"] = items
+  request.session["prebasket"] = preselection
   print(f"Request.session is:", request.session["prebasket"])
-  context = {"items": items}
+  context = {"items": preselection}
   print(f"Context is: ", context)
-  if request.is_ajax():
-    print("Request is AJAX")
-    html = render_to_string('pizza/prebasket.html', {'items': items})
-    return HttpResponse(html)
+ # below not working
   return render(request, "pizza/prebasket.html", context)
 
 @login_required

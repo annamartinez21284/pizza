@@ -1,8 +1,17 @@
 {% extends "pizza/innerlayout.html" %}
 
+{% block head %}
+
+{% load static %}
+  <script src="{% static 'pizza/prebasket.js' %}"></script>
+
+{% endblock %}
+
+<!-- THIS HAS TO BECOME A FORM, built in prebasket.js submission goes to server !-->
 
 {% block body %}
-<table width=100%>
+<div id="test"></div>
+<table width=100% >
   <tr>
     {% for d in items %}
 
