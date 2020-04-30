@@ -19,16 +19,15 @@ import json
 def index(request):
   if request.method == 'POST':
     q_preselection = request.POST.dict()
-    print("IS THERE ALREADY STH IN BASKET? ", q_preselection) # comes out empty
+    print("IS THERE ALREADY STH IN BASKET? ", q_preselection)
 
   cheese = Pizza.objects.filter(Q(topping_count=0)).order_by('price')
   for c in cheese:
     print("CHEESES cOME OUT AS:")
     print(c.size, c.style, c.topping_count)
-  # create empty dict, populate w item_ID & quantity(0) and return as json.dumps to client (JS)
 
   context = {
-  # problem: SM and reg always have to be cheaper than sicilian...
+  # problem: SM and reg always have to be cheaper than sicilian with current html design...
   "0top": Pizza.objects.filter(Q(topping_count=0)).order_by('price'),
   "1top": Pizza.objects.filter(Q(topping_count=1)).order_by('price'),
   "2top": Pizza.objects.filter(Q(topping_count=2)).order_by('price'),
@@ -44,8 +43,6 @@ def index(request):
 @login_required
 def prebasket(request):
 
-  if request.session["prebasket"]:
-    pass # implement later if needed
 
   q_preseletion = {}
   preselection = []
@@ -80,6 +77,11 @@ def prebasket(request):
   print(f"Context is: ", context)
  # below not working
   return render(request, "pizza/prebasket.html", context)
+
+@login_required
+def basket(request):
+  pass
+  
 
 @login_required
 def logout_view(request):

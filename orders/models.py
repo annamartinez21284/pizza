@@ -22,7 +22,7 @@ class Dish(models.Model):
   price = models.DecimalField(max_digits=6, decimal_places=2, default=None)
 
   def __str__(self):
-    return f"{self.name}, {self.size} - Price: ${self.price}"
+    return f"{self.name} {self.size} - Price: ${self.price}"
 
 class Order(models.Model):
   order_id = models.AutoField(primary_key=True)
@@ -71,7 +71,7 @@ class Pizza(Dish):
   #price = models.DecimalField(max_digits=6, decimal_places=2)
 
   def __str__(self):
-    return f"Price for {self.size} {self.style} pizza with {self.topping_count} toppings: ${self.price}"
+    return f"{self.size} {self.style} pizza with {self.topping_count} toppings: ${self.price}"
 
 
 # class SubPrice(models.Model):

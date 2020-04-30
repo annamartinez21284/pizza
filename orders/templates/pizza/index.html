@@ -41,8 +41,12 @@
               <td>Cheese</td>
               {% for p in 0top %}
 
-                <td class="price"> {{p.price}} </td>
-                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="1" max="10" step="1" size="2"></td>
+                <td class="price" id="p-{{p.dish.id}}"> {{p.price}}</td>
+
+                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2">
+                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
+                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                </td>
 
               {% endfor %}
               </tr>
@@ -51,8 +55,10 @@
               <td>1 Topping</td>
               {% for p in 1top %}
 
-                <td class="price"> {{p.price}} </td>
-                <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                <td class="price" id="p-{{p.dish.id}}"> {{p.price}} </td>
+                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
+                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
 
               {% endfor %}
               </tr>
@@ -61,8 +67,10 @@
               <td>2 Toppings</td>
               {% for p in 2top %}
 
-                <td class="price"> {{p.price}} </td>
-                <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                <td class="price" id="p-{{p.dish.id}}"> {{p.price}} </td>
+                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
+                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
 
               {% endfor %}
               </tr>
@@ -71,8 +79,10 @@
               <td>3 Toppings</td>
               {% for p in 3top %}
 
-                <td class="price"> {{p.price}} </td>
-                <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                <td class="price"  id="p-{{p.dish.id}}"> {{p.price}} </td>
+                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
+                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
               {% endfor %}
               </tr>
 
@@ -80,9 +90,10 @@
               <td>Special (max. 5 Toppings)</td>
               {% for p in 5top %}
 
-                <td class="price"> {{p.price}} </td>
-                <td><input type="number" min="0" max="10" step="1" size="2"></td>
-
+                <td class="price" id="p-{{p.dish.id}}"> {{p.price}} </td>
+                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
+                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
               {% endfor %}
               </tr>
           	</table>

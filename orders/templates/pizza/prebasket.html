@@ -10,18 +10,13 @@
 <!-- THIS HAS TO BECOME A FORM, built in prebasket.js submission goes to server !-->
 
 {% block body %}
-<div id="test"></div>
-<table width=100% >
-  <tr>
-    {% for d in items %}
-
-      <td> {{d.name}}, Price: <div class="price">{{d.price}}</div>  - Amount: {{d.amount}} Total: {{d.total}} </td>
+<form id="basket"  method="post" action = "{% url 'basket' %}"> 
+  <table width=100% id="items" class="foodmenu">
 
 
-    {% endfor %}
+      <!--   <td>See what comes out: d</td> -->
+      <!--  <td> {{d.name}}, Price: <div class="price">{{d.price}}</div>  - Amount: {{d.amount}} Total: {{d.total}} </td> -->
 
-  </tr>
-
-</table>
-
+  </table>
+</form>
 {% endblock %}

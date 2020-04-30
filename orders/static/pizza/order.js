@@ -37,7 +37,7 @@ $.ajaxSetup({
 var preselection = localStorage.getItem("preselection");
 
 function previous_selection () {
-  if (localStorage.getItem("preselection") != null) {
+  if (preselection != null) {
     console.log("PRESELECTION IS: ", preselection);
     window.location.href = '/prebasket';
     return false;
@@ -51,32 +51,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#preselect').onsubmit = () => {
     // add data to send to server with request - FormData object holds user input
-
     const data = new FormData();
     const inputs = document.querySelectorAll('input:valid');
     console.log(inputs); // prints node list OK
-    // https://stackoverflow.com/questions/18884840/adding-a-new-array-element-to-a-json-object
-    //var jsonStr = '{"items":[]}';
-    //var obj = JSON.parse(jsonStr);
+
     var obj = [];
-    console.log("GET HERE?");
 
     inputs.forEach(
       function(input) {
         // make sure input.value, which is the selected amount, is numeric and only those inputs are selected, not the NEXT button
         if (! (isNaN(input.value))) {
-          console.log(input.value);
-          console.log(input.id);
-          console.log(input.name);
-          price = input.parentElement.previousElementSibling.innerHTML;
-          console.log(price);
-          total = price * input.value;
-          console.log(total);
-          obj.push({"amount": input.value, "id": input.id, "name": input.name, "price": price, "total": total});
-          console.log(obj);
+          if (input.value > 0) {
+            var price = document.querySelector('#p-'.concat(input.id)).innerHTML;
+            var topping_count = document.querySelector('#tc-'.concat(input.id)).innerHTML;
+            var sid = '#s-'.concat(input.id);
+            console.log(sid);
+            var size = document.querySelector(sid).innerHTML; // not working... werid
+            //var size = document.querySelector('#s-'.concat(input.id)).innerHTML;
+            console.log(size);
+            total = price * input.value;
+            obj.push({"amount": input.value, "id": input.id, "name": input.name, "size": size, "topping_count": topping_count, "price": price, "total": total});
+            console.log(obj);
+          }
         }
       });
 
+    // convert native JavaScript object ot JSON-string (notation)
     var jsonStr = JSON.stringify(obj);
 
 
@@ -93,13 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // callback function for when request completes
     request.onload = () => {
       // because I'm posting through ajax, need to load page here... that's how ajax works apparently
-    //  var url = '/prebasket';
       window.location.href = '/prebasket';
-
     };
-    return true;
-
-
+    return false;
   };
 
 });

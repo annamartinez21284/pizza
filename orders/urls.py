@@ -9,7 +9,8 @@ urlpatterns = [
     path("sign_in", views.sign_in, name="sign_in"),
     path("register_client", views.register_client, name="register_client"),
     path("logout_view", views.logout_view, name="logout"),
-    path("prebasket", views.prebasket, name="prebasket")
+    path("prebasket", views.prebasket, name="prebasket"),
+    path("basket", views.basket, name="basket")
     # not sure about the below and about settings.py LOGIN_URL path
     #path('accounts/login/', auth_views.LoginView.as_view())
 ]
