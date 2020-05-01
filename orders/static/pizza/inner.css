@@ -17,6 +17,11 @@ td {width:auto;
 
 div.callout ul {font-size: 80%; text-align: left; }
 
+.toppingline {
+  font-size: 14px;
+  background-color: #b5b35c;
+}
+
 .price {
   font-size: 18px;
   padding-right: -5px;

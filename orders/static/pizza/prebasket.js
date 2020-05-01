@@ -8,26 +8,61 @@ function load_basket () {
     //document.querySelector('#test').innerHTML = preselection;
     json.forEach(function(e) {
       const tr = document.createElement('tr');
-      const td1 = document.createElement('td');
-      const td2 = document.createElement('td');
-      const td3 = document.createElement('td');
+      const name = document.createElement('td');
+      const size = document.createElement('td');
+      const price = document.createElement('td');
+      const amount = document.createElement('td');
+      const subtotal = document.createElement('td');
 
-      td1.innerHTML = e.name;
-      if (e.size != null) {td2.innerHTML = e.size;};
-      td2.innerHTML = e.size;
-      td3.innerHTML = e.price;
+      name.innerHTML = e.name;
       // display size if item has size
+      if (e.size != null) {size.innerHTML = e.size;};
+      price.innerHTML = e.price;
+      price.setAttribute("class", "price");
+      amount.innerHTML = e.amount.concat(" x");
+      // display subtotal with 2 decimal places
+      subtotal.innerHTML = (e.amount * e.price).toFixed(2);
+      subtotal.setAttribute("class", "price");
 
-      tr.appendChild(td1);
-      tr.appendChild(td2);
-      tr.appendChild(td3);
+      tr.appendChild(name);
+      tr.appendChild(size);
+      tr.appendChild(price);
+      tr.appendChild(amount);
+      tr.appendChild(subtotal);
       document.querySelector('#items').appendChild(tr);
+
+      // if Pizza with n>0 topping(s), add row with n dropdown boxes - BUT THIS IS ONLY FOR ONE PIZZA, WHAT IF >!1??!! - another for loop around this!
+      if (e.topping_count > 0) {
+        // add e.amount rows
+        for (let i = 0; i< e.amount; i++) {
+          const tr = document.createElement('tr'); // make sure no scope issue here
+          tr.setAttribute("class", "toppingline");
+          document.querySelector('#items').appendChild(tr);
+          const td = document.createElement('td');
+          td.innerHTML = "Choose topping(s) for Pizza #" + (i+1);
+          tr.appendChild(td);
+          // in that row add 1 td containing 1 select menu each
+          for (let j = 0; j < e.topping_count; j++) {
+            const td = document.createElement('td');
+            const toppings = document.querySelector('select');
+            const select = toppings.cloneNode(true);
+            select.removeAttribute("hidden");
+            const st = document.createElement('option');
+            st.setAttribute("selected", "true");
+            st.setAttribute("disabled", "true");
+            st.innerHTML = "Select Topping " + (j+1) + ":";
+            select.prepend(st);
+            td.appendChild(select);
+            tr.appendChild(td);
+
+          }
+        }
+      };
+
+      // if Sub, add 1 line per sub amount, and use AJAX to update price depending on # extra boxes ticked
+
+
     });
-    // do properly - looping thru preselection and building HTML elements 1 by 1
-    // have a [hidden HTML element] on prebasket.html with all the Toppings - have Django render that from DB with template context
-    // check toppingcount...
-    // if pizza (= if toppingcount), add dropdown(s) for each topping in element created
-    // check for cheese, 0top, 1top etc to determine # of topping dropdown lists
   }
 
   // if nothing is in basket

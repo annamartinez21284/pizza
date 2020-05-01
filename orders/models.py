@@ -135,20 +135,16 @@ class PlatterOrder(Platter):
 
 class SubOrder(Sub):
   item_id = models.ForeignKey(Item, on_delete=models.CASCADE, primary_key=True, related_name="sub_item_id")
-  # LARGE = 'L'
-  # SMALL = 'S'
-  # SIZE_CHOICES = ( (SMALL, 'Small'), (LARGE, 'Large'),)
-  # size = models.CharField(max_length=1, choices=SIZE_CHOICES, default=SMALL)
   extra_count = models.IntegerField(default=0, validators=[MaxValueValidator(4), MinValueValidator(0)])
   MUSHIES = 'M'
   PEPPERS = 'P'
   ONIONS = 'O'
   XTRCHEESE = 'C'
   EXTRA_CHOICES = ((MUSHIES, 'Mushrooms'), (PEPPERS, 'Peppers'), (ONIONS, 'Onions'), (XTRCHEESE, 'Extra Cheese'),)
-  extra_1 = models.CharField(max_length=1,choices=EXTRA_CHOICES, blank=True)
-  extra_2 = models.CharField(max_length=1,choices=EXTRA_CHOICES, blank=True)
-  extra_3 = models.CharField(max_length=1,choices=EXTRA_CHOICES, blank=True)
-  extra_4 = models.CharField(max_length=1,choices=EXTRA_CHOICES, blank=True)
+  extra_1 = models.CharField(max_length=1, choices=EXTRA_CHOICES, blank=True)
+  extra_2 = models.CharField(max_length=1, choices=EXTRA_CHOICES, blank=True)
+  extra_3 = models.CharField(max_length=1, choices=EXTRA_CHOICES, blank=True)
+  extra_4 = models.CharField(max_length=1, choices=EXTRA_CHOICES, blank=True)
   #name = models.ForeignKey(Sub, on_delete=models.DO_NOTHING, related_name="sub_name")
 
   def __str__(self):

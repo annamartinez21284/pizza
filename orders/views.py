@@ -43,45 +43,28 @@ def index(request):
 @login_required
 def prebasket(request):
 
-
-  q_preseletion = {}
-  preselection = []
   if request.method == 'POST':
   # "request.POST" returns an immutable QueryDict (sent as JSON) of items and amount pre-selected by user, hence copy() at end or dict()
-    q_preselection = request.POST.dict()
-    preselection = json.loads(q_preselection["preselection"])
-    print("THIS IS THE POST REquest")
-  #print("Q_PRESELECTION[preselection]: ", q_preselection["preselection"]) # prints OK
-  if request.method == 'GET':
-    q_preselection = request.GET.dict()
-    print("THIS IS THE GET REQUEST - shouldn t come out now")
+    print("THIS IS THE POST REquest- shouldn t come out now")
     return render(request, "pizza/prebasket.html")
 
-  print("PRESELECTION THERE? ", preselection) # seems to come empty - hence key error , but also empty when localStorage not emppty(i.e. GET request)...weird
-  # preselection is a list of dicts
-  for item in preselection:
-    # p is a dict
-    print(f"PRINTING item:", item)
-    print(f"PRINTING name:", item["name"])
-    #dish = Dish.objects.get(pk=item["id"])
-    price = ("%.2f" % float(item["price"]))
-    total = ("%.2f" % float(item["total"]))
-    item["price"] = price
-    item["total"] = total
-    print(f"Item is:", item)
+  if request.method == 'GET':
 
-  # store preselected items in session - check later if needed/utilised at all
-  request.session["prebasket"] = preselection
-  print(f"Request.session is:", request.session["prebasket"])
-  context = {"items": preselection}
-  print(f"Context is: ", context)
- # below not working
-  return render(request, "pizza/prebasket.html", context)
+    print("THIS IS THE GET REQUEST")
+    # https://stackoverflow.com/questions/12165924/access-djangos-field-choices
+    # that's to access tuples of choices
+    e = SubOrder.EXTRA_CHOICES
+    # i[1] gets 'index 1', i.e. the 2nd item from tuple list e ((M, 'Mushrooms', P, 'Peppers', etc)
+    extras = [i[1] for i in e]
+    context = {"toppings": Topping.objects.all(),
+                "extras": extras}
+    return render(request, "pizza/prebasket.html", context)
+
 
 @login_required
 def basket(request):
   pass
-  
+
 
 @login_required
 def logout_view(request):

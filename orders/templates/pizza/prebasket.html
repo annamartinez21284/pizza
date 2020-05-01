@@ -10,13 +10,38 @@
 <!-- THIS HAS TO BECOME A FORM, built in prebasket.js submission goes to server !-->
 
 {% block body %}
-<form id="basket"  method="post" action = "{% url 'basket' %}"> 
+
+<select name="toppings" hidden>
+  {% for t in toppings %}
+    <option value="{{t.id}}">{{t.name}}</option>
+  {% endfor %}
+</select>
+
+  <!-- value maps to model attribute -->
+  <div hidden>
+    Any extras? (+$0.50)
+    {% for e in extras %}
+    <input type="checkbox" id="extra_1">{{e}}</input>
+    {% endfor %}
+  </div>
+
+
+<form id="basket"  method="post" action = "{% url 'basket' %}">
+  <div class="callout">
   <table width=100% id="items" class="foodmenu">
+    <tr>
+      <td></td>
+      <td>Size</td>
+      <td>Price</td>
+      <td>Quantity</td>
+      <td>Total</td>
+    </tr>
 
 
       <!--   <td>See what comes out: d</td> -->
       <!--  <td> {{d.name}}, Price: <div class="price">{{d.price}}</div>  - Amount: {{d.amount}} Total: {{d.total}} </td> -->
 
   </table>
+  </div>
 </form>
 {% endblock %}
