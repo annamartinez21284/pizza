@@ -17,11 +17,11 @@
   {% endfor %}
 </select>
 
-  <!-- value maps to model attribute -->
-  <div hidden>
+  <!-- input value maps to model attribute -->
+  <div hidden id="extras">
     Any extras? (+$0.50)
     {% for e in extras %}
-    <input type="checkbox" id="extra_1">{{e}}</input>
+    <input type="checkbox">{{e}}</input>
     {% endfor %}
   </div>
 

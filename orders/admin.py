@@ -5,9 +5,9 @@ from .forms import *
 # Register your models here.
 admin.site.register(Order)
 admin.site.register(Dish)
-admin.site.register(Item)
-admin.site.register(PastaSalad)
-admin.site.register(Platter)
+#admin.site.register(Item)
+#admin.site.register(PastaSalad)
+#admin.site.register(Platter)
 admin.site.register(Topping)
 admin.site.register(Pizza)
 #admin.site.register(SubPrice)

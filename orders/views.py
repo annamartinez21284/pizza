@@ -34,10 +34,11 @@ def index(request):
   "3top": Pizza.objects.filter(Q(topping_count=3)).order_by('price'),
   "5top": Pizza.objects.filter(Q(topping_count=5)).order_by('price'),
   "toppings": Topping.objects.all(),
-  "subs": Sub.objects.all(),
-  "pastasalads": PastaSalad.objects.all(),
-  "platters": Platter.objects.all()
+  "subs": Dish.objects.filter(type="Sub"),
+  "pastasalads": Dish.objects.filter(type="PastaSalad"),
+  "platters": Dish.objects.filter(type="Platter")
   }
+
   return render(request, "pizza/index.html", context)
 
 @login_required
@@ -56,6 +57,7 @@ def prebasket(request):
     e = SubOrder.EXTRA_CHOICES
     # i[1] gets 'index 1', i.e. the 2nd item from tuple list e ((M, 'Mushrooms', P, 'Peppers', etc)
     extras = [i[1] for i in e]
+    # deliver sub [some info] to check against localStorage
     context = {"toppings": Topping.objects.all(),
                 "extras": extras}
     return render(request, "pizza/prebasket.html", context)

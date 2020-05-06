@@ -31,7 +31,8 @@ function load_basket () {
       tr.appendChild(subtotal);
       document.querySelector('#items').appendChild(tr);
 
-      // if Pizza with n>0 topping(s), add row with n dropdown boxes - BUT THIS IS ONLY FOR ONE PIZZA, WHAT IF >!1??!! - another for loop around this!
+      // if item is (a) pizza(s) - I check this via topping_count property
+      // can naw also do if (e.type == PIZZA) {}
       if (e.topping_count > 0) {
         // add e.amount rows
         for (let i = 0; i< e.amount; i++) {
@@ -52,6 +53,9 @@ function load_basket () {
             st.setAttribute("disabled", "true");
             st.innerHTML = "Select Topping " + (j+1) + ":";
             select.prepend(st);
+            if (j == 4) {
+              //add None (optional) to topping selection
+            }
             td.appendChild(select);
             tr.appendChild(td);
 
@@ -60,6 +64,20 @@ function load_basket () {
       };
 
       // if Sub, add 1 line per sub amount, and use AJAX to update price depending on # extra boxes ticked
+      if (e.type == "SUB") {
+        for (let i=0; i < e.amount; i++){
+          const tr = document.createElement('tr'); // make sure no scope issue here
+          tr.setAttribute("class", "toppingline");
+          document.querySelector('#items').appendChild(tr);
+          const td = document.createElement('td');
+
+          const extras = document.querySelector('#extras');
+          const checkboxes = extras.cloneNode(true);
+          checkboxes.removeAttribute("hidden");
+          td.appendChild(checkboxes)
+          tr.appendChild(td);
+        }
+      }
 
 
     });

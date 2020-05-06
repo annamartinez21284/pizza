@@ -69,8 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
             var size = document.querySelector(sid).innerHTML; // not working... werid
             //var size = document.querySelector('#s-'.concat(input.id)).innerHTML;
             console.log(size);
-            total = price * input.value;
-            obj.push({"amount": input.value, "id": input.id, "name": input.name, "size": size, "topping_count": topping_count, "price": price, "total": total});
+            var total = price * input.value;
+            var dish_type = document.querySelector('#d-'.concat(input.id)).innerHTML;
+            console.log(dish_type)
+            obj.push({"amount": input.value, "id": input.id, "name": input.name, "size": size, "topping_count": topping_count, "price": price, "total": total, "dish_type": dish_type});
             console.log(obj);
           }
         }
@@ -78,6 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // convert native JavaScript object ot JSON-string (notation)
     var jsonStr = JSON.stringify(obj);
+    localStorage.setItem('preselection', jsonStr);
+    console.log("local storage set");
+    window.location.href = '/prebasket';
+    console.log("redirecting or redirected");
+    return false;
 
 
     console.log("GOT THRU TO: ", jsonStr);
@@ -88,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     request.open('POST', '/prebasket');
     request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     request.send(data);
-    localStorage.setItem('preselection', jsonStr);
+
 
     // callback function for when request completes
     request.onload = () => {

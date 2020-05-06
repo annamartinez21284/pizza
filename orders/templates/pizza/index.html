@@ -46,6 +46,7 @@
                 <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2">
                 <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
                 <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
                 </td>
 
               {% endfor %}
@@ -59,6 +60,7 @@
                 <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
                 <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
                 <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
 
               {% endfor %}
               </tr>
@@ -71,6 +73,7 @@
                 <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
                 <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
                 <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
 
               {% endfor %}
               </tr>
@@ -83,6 +86,7 @@
                 <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
                 <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
                 <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
               {% endfor %}
               </tr>
 
@@ -94,6 +98,7 @@
                 <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
                 <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
                 <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
               {% endfor %}
               </tr>
           	</table>
@@ -129,21 +134,23 @@
               {% for s in subs %}
                   <tr>
                     <td style="text-align: left;" >{{s.name}}</td>
-                      {% if s.size == "Small" and s.price != None %}
-                        <td class="price">
-                          {{s.price}}
-                        </td>
+                      {% if s.size == "S" and s.price != None %}
+                        <td class="price">{{s.price}}</td>
                         <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                        <div hidden id="s-{{s.dish.id}}">{{s.size}}</div>
+                        <div hidden id="d-{{s.dish.id}}">{{s.type}}</div>
                       {% else %}
                        <td></td>
                        <td></td>
                       {% endif %}
 
-                      {% if s.size == large and s.price != None %}
+                      {% if s.size == "L" and s.price != None %}
                         <td class="price">
                           {{s.price}}
                         </td>
                         <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                        <div hidden id="s-{{s.dish.id}}">{{s.size}}</div>
+                        <div hidden id="d-{{s.dish.id}}">{{s.type}}</div>
                       {% else %}
                       <td></td>
                       <td></td>
@@ -184,6 +191,7 @@
           		<td class="ps" style="text-align: left;" >{{ps.name}}</td>
           		<td class="price">{{ps.price}}</td>
               <td><input type="number" min="0" max="10" step="1" size="2"></td>
+              <div hidden id="d-{{ps.dish.id}}">{{ps.type}}</div>
           	      </tr>
                   {% endfor %}
 
@@ -196,19 +204,35 @@
               		      <th colspan="5"><a name="dinner">Dinner Platters</a></th>
               	      </tr>
                       <tr>
-                      <td></td>
-                      <td>Small</td>
-                      <td>add</td>
-                      <td>Large</td>
-                      <td>add</td>
+                        <td></td>
+                        <td>Small</td>
+                        <td>add</td>
+                        <td>Large</td>
+                        <td>add</td>
                       </tr>
               {% for p in platters %}
                 <tr>
+                  <!-- NEEDS FIXING _ NO MORE PRICE_LARGE AND PRICE_SMALL -->
               		<td style="text-align: left;" >{{p.name}}</td>
-              		<td class="price">{{p.price_small}}</td>
+                  {% if p.size == "Small" and p.price != None %}
+              		<td class="price">{{p.price}}</td>
                   <td><input type="number" min="0" max="10" step="1" size="2"></td>
-                  <td class="price">{{p.price_large}}</td>
+                  <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                  <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
+                  {% else %}
+                  <td></td>
+                  <td></td>
+                  {% endif %}
+
+                  {% if p.size == "Large" and p.price != None %}
+              		<td class="price">{{p.price}}</td>
                   <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                  <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                  <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
+                  {% else %}
+                  <td></td>
+                  <td></td>
+                  {% endif %}
               	</tr>
               {% endfor %}
 
