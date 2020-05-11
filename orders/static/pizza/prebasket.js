@@ -32,7 +32,7 @@ function load_basket () {
       document.querySelector('#items').appendChild(tr);
 
       // if item is (a) pizza(s) - I check this via topping_count property
-      // can naw also do if (e.type == PIZZA) {}
+      // can naw also do if (e.dish_type == PIZZA) {}
       if (e.topping_count > 0) {
         // add e.amount rows
         for (let i = 0; i< e.amount; i++) {
@@ -64,18 +64,21 @@ function load_basket () {
       };
 
       // if Sub, add 1 line per sub amount, and use AJAX to update price depending on # extra boxes ticked
-      if (e.type == "SUB") {
+      if (e.dish_type == "SUB") {
         for (let i=0; i < e.amount; i++){
           const tr = document.createElement('tr'); // make sure no scope issue here
-          tr.setAttribute("class", "toppingline");
+          tr.setAttribute("class", "toppingline"); // MAKE CSS for toppingline stay inside big frame margin when shrunk!!
           document.querySelector('#items').appendChild(tr);
-          const td = document.createElement('td');
-
+          const td1 = document.createElement('td');
+          const td2 = document.createElement('td');
+          td2.setAttribute("colspan", "5");
+          td1.innerHTML = "Extra(s) ($0.50) for Sub #" + (i+1);
           const extras = document.querySelector('#extras');
           const checkboxes = extras.cloneNode(true);
           checkboxes.removeAttribute("hidden");
-          td.appendChild(checkboxes)
-          tr.appendChild(td);
+          td2.appendChild(checkboxes);
+          tr.appendChild(td1);
+          tr.appendChild(td2);
         }
       }
 

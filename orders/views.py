@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 
 from .forms import RegisterForm, SigninForm
 from .models import *
-import json
+import json, datetime
 
 #TODO: Logout link in index.html, JS email vaildation
 
@@ -21,22 +21,32 @@ def index(request):
     q_preselection = request.POST.dict()
     print("IS THERE ALREADY STH IN BASKET? ", q_preselection)
 
-  cheese = Pizza.objects.filter(Q(topping_count=0)).order_by('price')
+  cheese = Dish.objects.filter(type="Pizza",topping_count=0).order_by('price')
   for c in cheese:
     print("CHEESES cOME OUT AS:")
     print(c.size, c.style, c.topping_count)
 
+  e = SubOrder.EXTRA_CHOICES
+  extras = [i[1] for i in e]
+  toppings = []
+  t = Topping.objects.all()
+  for x in t:
+    toppings.append(x.name)
+
+  print(f"TOPPINGS ARE: ", toppings)
+
   context = {
   # problem: SM and reg always have to be cheaper than sicilian with current html design...
-  "0top": Pizza.objects.filter(Q(topping_count=0)).order_by('price'),
-  "1top": Pizza.objects.filter(Q(topping_count=1)).order_by('price'),
-  "2top": Pizza.objects.filter(Q(topping_count=2)).order_by('price'),
-  "3top": Pizza.objects.filter(Q(topping_count=3)).order_by('price'),
-  "5top": Pizza.objects.filter(Q(topping_count=5)).order_by('price'),
-  "toppings": Topping.objects.all(),
-  "subs": Dish.objects.filter(type="Sub"),
-  "pastasalads": Dish.objects.filter(type="PastaSalad"),
-  "platters": Dish.objects.filter(type="Platter")
+  "0top": Dish.objects.filter(topping_count=0, type="PIZZA").order_by('price'),
+  "1top": Dish.objects.filter(topping_count=1, type="PIZZA").order_by('price'),
+  "2top": Dish.objects.filter(topping_count=2, type="PIZZA").order_by('price'),
+  "3top": Dish.objects.filter(topping_count=3, type="PIZZA").order_by('price'),
+  "5top": Dish.objects.filter(topping_count=5, type="PIZZA").order_by('price'),
+  "toppings": toppings,
+  "subs": Dish.objects.filter(type="SUB"),
+  "pastasalads": Dish.objects.filter(type="PASTASALAD"),
+  "platters": Dish.objects.filter(type="PLATTER"),
+  "extras": extras
   }
 
   return render(request, "pizza/index.html", context)

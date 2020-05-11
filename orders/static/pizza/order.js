@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#preselect').onsubmit = () => {
     // add data to send to server with request - FormData object holds user input
-    const data = new FormData();
-    const inputs = document.querySelectorAll('input:valid');
+    //const data = new FormData();
+    const inputs = document.querySelectorAll('input:valid'); // for some reason selects bunch of blank input fields...
     console.log(inputs); // prints node list OK
 
     var obj = [];
@@ -60,13 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
     inputs.forEach(
       function(input) {
         // make sure input.value, which is the selected amount, is numeric and only those inputs are selected, not the NEXT button
-        if (! (isNaN(input.value))) {
+        if (! (isNaN(input.value)) ) {
           if (input.value > 0) {
             var price = document.querySelector('#p-'.concat(input.id)).innerHTML;
-            var topping_count = document.querySelector('#tc-'.concat(input.id)).innerHTML;
+            // below line do a try pass catch thing - only pizzas have toppings...
+            try{
+              topping_count = document.querySelector('#tc-'.concat(input.id)).innerHTML;
+            }
+            catch (err) {
+              topping_count = 0;
+            }
+
             var sid = '#s-'.concat(input.id);
             console.log(sid);
-            var size = document.querySelector(sid).innerHTML; // not working... werid
+            var size = document.querySelector(sid).innerHTML;
             //var size = document.querySelector('#s-'.concat(input.id)).innerHTML;
             console.log(size);
             var total = price * input.value;
@@ -89,19 +96,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log("GOT THRU TO: ", jsonStr);
 
-    data.append("preselection", jsonStr);
-    // Initialise new AJAX request object
-    const request = new XMLHttpRequest();
-    request.open('POST', '/prebasket');
-    request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    request.send(data);
-
-
-    // callback function for when request completes
-    request.onload = () => {
-      // because I'm posting through ajax, need to load page here... that's how ajax works apparently
-      window.location.href = '/prebasket';
-    };
+    // data.append("preselection", jsonStr);
+    // // Initialise new AJAX request object
+    // const request = new XMLHttpRequest();
+    // request.open('POST', '/prebasket');
+    // request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    // request.send(data);
+    //
+    //
+    // // callback function for when request completes
+    // request.onload = () => {
+    //   // because I'm posting through ajax, need to load page here... that's how ajax works apparently
+    //   window.location.href = '/prebasket';
+    // };
     return false;
   };
 

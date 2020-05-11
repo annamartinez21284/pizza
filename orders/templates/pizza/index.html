@@ -8,240 +8,244 @@
 {% endblock %}
 
 {% block body %}
-<table width=100%>
+  <table width=100%>
 
-  <tr>
-    <td>
-      <form action="{% url 'prebasket' %}" method="post" name="preselect" id="preselect">
-        {% csrf_token %}
-        <div class="callout">
-          <h2>Step 1: Select from Our Menu</h2>
-          <br>
-            <table class="foodmenu" >
+    <tr>
+      <td>
+        <form action="{% url 'prebasket' %}" name="preselect" id="preselect"> <!-- no method = needed because JS takes care -->
+          {% csrf_token %}
+          <div class="callout">
+            <h2>Step 1: Select from Our Menu</h2>
+            <br>
+              <table class="foodmenu" >
 
-              <tr>
-                <th colspan="1"></th>
-        	      <th colspan="4"><a name="regular_pizza">Regular Pizza</a></th>
-                <th colspan="4"><a name="regular_pizza">Sicilian Pizza</a></th>
-              </tr>
+                <tr>
+                  <th colspan="1"></th>
+          	      <th colspan="4"><a name="regular_pizza">Regular Pizza</a></th>
+                  <th colspan="4"><a name="regular_pizza">Sicilian Pizza</a></th>
+                </tr>
 
-            	<tr>
-            		<td></td>
-            		<td>Small</td>
-                <td>add</td>
-            		<td>Large</td>
-                <td>add</td>
-                <td>Small</td>
-                <td>add</td>
-                <td>Large</td>
-                <td>add</td>
-            	</tr>
-
-              <tr>
-              <td>Cheese</td>
-              {% for p in 0top %}
-
-                <td class="price" id="p-{{p.dish.id}}"> {{p.price}}</td>
-
-                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2">
-                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
-                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
-                </td>
-
-              {% endfor %}
-              </tr>
-
-              <tr>
-              <td>1 Topping</td>
-              {% for p in 1top %}
-
-                <td class="price" id="p-{{p.dish.id}}"> {{p.price}} </td>
-                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
-                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
-                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
-
-              {% endfor %}
-              </tr>
-
-              <tr>
-              <td>2 Toppings</td>
-              {% for p in 2top %}
-
-                <td class="price" id="p-{{p.dish.id}}"> {{p.price}} </td>
-                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
-                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
-                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
-
-              {% endfor %}
-              </tr>
-
-              <tr>
-              <td>3 Toppings</td>
-              {% for p in 3top %}
-
-                <td class="price"  id="p-{{p.dish.id}}"> {{p.price}} </td>
-                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
-                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
-                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
-              {% endfor %}
-              </tr>
-
-              <tr>
-              <td>Special (max. 5 Toppings)</td>
-              {% for p in 5top %}
-
-                <td class="price" id="p-{{p.dish.id}}"> {{p.price}} </td>
-                <td><input id ="{{p.dish.id}}" name ="{{p.dish.name}}" type="number" min="0" max="10" step="1" size="2"></td>
-                <div hidden id="tc-{{p.dish.id}}">{{p.topping_count}}</div>
-                <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
-              {% endfor %}
-              </tr>
-          	</table>
-          <br>
-        	  <table width="100%" class="toppingmenu">
-          	    <tbody>
-          	      <tr>
-          		<th colspan="2"><a name="toppings">Pizza toppings (Select in next step)</a></th>
-          	      </tr>
-                  <tr>
-          		<td>
-                {% for t in toppings %}
-                {{t.name}},
-                {% endfor %}
-              </td>
-          	      </tr>
-                </tbody>
-          	</table>
-          <br>
-            <table width="100%" class="foodmenu">
-          	    <tbody>
-              <tr>
-              		<th colspan="5"><a name="subs">Subs</a></th>
-              </tr>
-              <tr>
+              	<tr>
               		<td></td>
               		<td>Small</td>
                   <td>add</td>
               		<td>Large</td>
                   <td>add</td>
-            	</tr>
+                  <td>Small</td>
+                  <td>add</td>
+                  <td>Large</td>
+                  <td>add</td>
+              	</tr>
 
-              {% for s in subs %}
-                  <tr>
-                    <td style="text-align: left;" >{{s.name}}</td>
-                      {% if s.size == "S" and s.price != None %}
-                        <td class="price">{{s.price}}</td>
-                        <td><input type="number" min="0" max="10" step="1" size="2"></td>
-                        <div hidden id="s-{{s.dish.id}}">{{s.size}}</div>
-                        <div hidden id="d-{{s.dish.id}}">{{s.type}}</div>
-                      {% else %}
-                       <td></td>
-                       <td></td>
-                      {% endif %}
+                <tr>
+                <td>Cheese</td>
+                {% for p in 0top %}
 
-                      {% if s.size == "L" and s.price != None %}
-                        <td class="price">
-                          {{s.price}}
-                        </td>
-                        <td><input type="number" min="0" max="10" step="1" size="2"></td>
-                        <div hidden id="s-{{s.dish.id}}">{{s.size}}</div>
-                        <div hidden id="d-{{s.dish.id}}">{{s.type}}</div>
-                      {% else %}
-                      <td></td>
-                      <td></td>
-                      {% endif %}
-                  </tr>
-              {% endfor %}
+                  <td class="price" id="p-{{p.id}}"> {{p.price}}</td>
 
+                  <td><input id ="{{p.id}}" name ="{{p.style}} {{p.name}}" type="number" min="0" max="10" step="1" size="2">
+                  <div hidden id="tc-{{p.id}}">{{p.topping_count}}</div>
+                  <div hidden id="s-{{p.id}}">{{p.size}}</div>
+                  <div hidden id="d-{{p.id}}">{{p.type}}</div>
+                  </td>
 
-                </tbody>
-            </table>
-          <br>
-            <table width="100%" class="toppingmenu">
+                {% endfor %}
+                </tr>
+
+                <tr>
+                <td>1 Topping</td>
+                {% for p in 1top %}
+
+                  <td class="price" id="p-{{p.id}}"> {{p.price}} </td>
+                  <td><input id ="{{p.dish.id}}" name ="{{p.style}} {{p.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                  <div hidden id="tc-{{p.id}}">{{p.topping_count}}</div>
+                  <div hidden id="s-{{p.id}}">{{p.size}}</div>
+                  <div hidden id="d-{{p.id}}">{{p.type}}</div>
+
+                {% endfor %}
+                </tr>
+
+                <tr>
+                <td>2 Toppings</td>
+                {% for p in 2top %}
+
+                  <td class="price" id="p-{{p.id}}"> {{p.price}} </td>
+                  <td><input id ="{{p.id}}" name ="{{p.style}} {{p.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                  <div hidden id="tc-{{p.id}}">{{p.topping_count}}</div>
+                  <div hidden id="s-{{p.id}}">{{p.size}}</div>
+                  <div hidden id="d-{{p.id}}">{{p.type}}</div>
+
+                {% endfor %}
+                </tr>
+
+                <tr>
+                <td>3 Toppings</td>
+                {% for p in 3top %}
+
+                  <td class="price"  id="p-{{p.id}}"> {{p.price}} </td>
+                  <td><input id ="{{p.id}}" name ="{{p.style}} {{p.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                  <div hidden id="tc-{{p.id}}">{{p.topping_count}}</div>
+                  <div hidden id="s-{{p.id}}">{{p.size}}</div>
+                  <div hidden id="d-{{p.id}}">{{p.type}}</div>
+                {% endfor %}
+                </tr>
+
+                <tr>
+                <td>Special (max. 5 Toppings)</td>
+                {% for p in 5top %}
+
+                  <td class="price" id="p-{{p.id}}"> {{p.price}} </td>
+                  <td><input id ="{{p.id}}" name ="{{p.style}} {{p.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                  <div hidden id="tc-{{p.id}}">{{p.topping_count}}</div>
+                  <div hidden id="s-{{p.id}}">{{p.size}}</div>
+                  <div hidden id="d-{{p.id}}">{{p.type}}</div>
+                {% endfor %}
+                </tr>
+            	</table>
+            <br>
+          	  <table width="100%" class="toppingmenu">
+            	    <tbody>
+            	      <tr>
+            		<th colspan="2"><a name="toppings">Pizza toppings (Select in next step)</a></th>
+            	      </tr>
+                    <tr>
+            		<td>
+                  {{ toppings|join:", " }}
+                </td>
+            	      </tr>
+                  </tbody>
+            	</table>
+            <br>
+
+              <table width="100%" class="foodmenu"> <!-- why the closing /table tag ignored??? -->
                 <tbody>
                   <tr>
-              <th colspan="2"><a name="toppings">Sub Extras (+$0.50 - Select in next step)</a></th>
+                  		<th colspan="5"><a name="subs">Subs</a></th>
                   </tr>
                   <tr>
-              <td >Mushrooms, Green Peppers, Onions, Extra Cheese</td>
+                  		<td></td>
+                  		<td>Small</td>
+                      <td>add</td>
+                  		<td>Large</td>
+                      <td>add</td>
+                	</tr>
+
+                  {% for s in subs %}
+                  <!-- THIS TABLE TEMPLATE FORMATE BELOW MEANS, IS ONLY 1 SIZE , THE OTHER SIZE SHOULD BE ENTERERD IN db WITH PRICE=NONE -->
+                        {% if s.size == "S" and s.price != None %}
+                        <tr>
+                          <td style="text-align: left;" >{{s.name}}</td>
+                          <td class="price" id="p-{{s.id}}">{{s.price}}</td>
+                          <td><input name ="{{s.name}}" id="{{s.id}}" type="number" min="0" max="10" step="1" size="2"></td>
+                          <div hidden id="s-{{s.id}}">{{s.size}}</div>
+                          <div hidden id="d-{{s.id}}">{{s.type}}</div>
+                          <!---->
+                        {% elif s.price == None %}
+
+
+                         <td style="text-align: left;" >{{s.name}}</td>
+                         <td></td>
+                         <td></td>
+
+                        {% elif s.size == "L" and s.price != None %}
+                          <td class="price" id="p-{{s.id}}">{{s.price}}</td>
+                          <td><input name ="{{s.name}}" id="{{s.id}}" type="number" min="0" max="10" step="1" size="2"></td>
+                          <div hidden id="s-{{s.id}}">{{s.size}}</div>
+                          <div hidden id="d-{{s.id}}">{{s.type}}</div>
+                          </tr>
+                        {% else %}
+                        <!---->
+                          <td></td>
+                          <td></td>
+
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+
+              </table>
+          <br>
+              <table width="100%" class="toppingmenu">
+                <tbody>
+                  <tr>
+                    <th colspan="2"><a name="toppings">Sub Extras (+$0.50 - Select in next step)</a></th>
+                  </tr>
+                  <tr>
+                    <td>
+                       {{ extras|join:", " }}
+                    </td>
                   </tr>
                 </tbody>
-            </table>
+              </table>
           <br>
-      	    <table width="100%" class="foodmenu">
-          	    <tbody>
-          	      <tr>
-          		<th colspan="4"><a >Pasta & Salads </a></th>
-          	      </tr>
-          	      <tr>
-          		<td></td>
-          		<td> </td>
-          	      </tr>
-                  <tr>
-                    <td></td><td></td><td> add</td>
-                  </tr>
+              <table width="100%" class="foodmenu">
+                  <tbody>
+                    <tr>
+              	       <th colspan="4"><a >Pasta & Salads </a></th>
+                    </tr>
+                    <tr>
+                    	<td></td>
+                    	<td> </td>
+                    </tr>
+                    <tr>
+                      <td></td><td></td><td> add</td>
+                    </tr>
 
-                  {% for ps in pastasalads %}
-                  <tr>
-          		<td class="ps" style="text-align: left;" >{{ps.name}}</td>
-          		<td class="price">{{ps.price}}</td>
-              <td><input type="number" min="0" max="10" step="1" size="2"></td>
-              <div hidden id="d-{{ps.dish.id}}">{{ps.type}}</div>
-          	      </tr>
-                  {% endfor %}
-
-                </tbody>
-            </table>
-          <br>
-        	  <table width="100%" class="foodmenu">
-             <tbody>
-              	      <tr>
-              		      <th colspan="5"><a name="dinner">Dinner Platters</a></th>
-              	      </tr>
+                    {% for ps in pastasalads %}
                       <tr>
-                        <td></td>
-                        <td>Small</td>
-                        <td>add</td>
-                        <td>Large</td>
-                        <td>add</td>
+                      	<td class="ps" style="text-align: left;" >{{ps.name}}</td>
+                      	<td class="price">{{ps.price}}</td>
+                        <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                        <div hidden id="d-{{ps.dish.id}}">{{ps.type}}</div>
                       </tr>
-              {% for p in platters %}
-                <tr>
-                  <!-- NEEDS FIXING _ NO MORE PRICE_LARGE AND PRICE_SMALL -->
-              		<td style="text-align: left;" >{{p.name}}</td>
-                  {% if p.size == "Small" and p.price != None %}
-              		<td class="price">{{p.price}}</td>
-                  <td><input type="number" min="0" max="10" step="1" size="2"></td>
-                  <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                  <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
-                  {% else %}
-                  <td></td>
-                  <td></td>
-                  {% endif %}
+                    {% endfor %}
 
-                  {% if p.size == "Large" and p.price != None %}
-              		<td class="price">{{p.price}}</td>
-                  <td><input type="number" min="0" max="10" step="1" size="2"></td>
-                  <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                  <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
-                  {% else %}
-                  <td></td>
-                  <td></td>
-                  {% endif %}
-              	</tr>
-              {% endfor %}
-
-             </tbody>
-            </table>
+                  </tbody>
+              </table>
           <br>
-            <table>
-              <input type="submit" value="NEXT">
-            </table>
+              <table width="100%" class="foodmenu">
+               <tbody>
+                	      <tr>
+                		      <th colspan="5"><a name="dinner">Dinner Platters</a></th>
+                	      </tr>
+                        <tr>
+                          <td></td>
+                          <td>Small</td>
+                          <td>add</td>
+                          <td>Large</td>
+                          <td>add</td>
+                        </tr>
+                {% for p in platters %}
+                  <tr>
+                    <!-- NEEDS FIXING _ NO MORE PRICE_LARGE AND PRICE_SMALL -->
+                		<td style="text-align: left;" >{{p.name}}</td>
+                    {% if p.size == "Small" and p.price != None %}
+                		<td class="price">{{p.price}}</td>
+                    <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                    <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                    <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
+                    {% else %}
+                    <td></td>
+                    <td></td>
+                    {% endif %}
+
+                    {% if p.size == "Large" and p.price != None %}
+                		<td class="price">{{p.price}}</td>
+                    <td><input type="number" min="0" max="10" step="1" size="2"></td>
+                    <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
+                    <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
+                    {% else %}
+                    <td></td>
+                    <td></td>
+                    {% endif %}
+                	</tr>
+                {% endfor %}
+
+               </tbody>
+              </table>
+          <br>
+              <table>
+                <input type="submit" value="NEXT">
+              </table>
 
         </div>
       </form>

@@ -19,7 +19,6 @@
 
   <!-- input value maps to model attribute -->
   <div hidden id="extras">
-    Any extras? (+$0.50)
     {% for e in extras %}
     <input type="checkbox">{{e}}</input>
     {% endfor %}
@@ -28,13 +27,16 @@
 
 <form id="basket"  method="post" action = "{% url 'basket' %}">
   <div class="callout">
+    <h2>Step 2: Customize & confirm order</h2>
+    <br>
   <table width=100% id="items" class="foodmenu">
+
     <tr>
-      <td></td>
-      <td>Size</td>
-      <td>Price</td>
-      <td>Quantity</td>
-      <td>Total</td>
+      <th></th>
+      <th>Size</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
     </tr>
 
 
