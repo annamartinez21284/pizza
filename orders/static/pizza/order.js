@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (! (isNaN(input.value)) ) {
           if (input.value > 0) {
             var price = document.querySelector('#p-'.concat(input.id)).innerHTML;
-            // below line do a try pass catch thing - only pizzas have toppings...
+            // below only pizzas have toppings...
             try{
               topping_count = document.querySelector('#tc-'.concat(input.id)).innerHTML;
             }
@@ -96,19 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log("GOT THRU TO: ", jsonStr);
 
-    // data.append("preselection", jsonStr);
-    // // Initialise new AJAX request object
-    // const request = new XMLHttpRequest();
-    // request.open('POST', '/prebasket');
-    // request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    // request.send(data);
-    //
-    //
-    // // callback function for when request completes
-    // request.onload = () => {
-    //   // because I'm posting through ajax, need to load page here... that's how ajax works apparently
-    //   window.location.href = '/prebasket';
-    // };
     return false;
   };
 

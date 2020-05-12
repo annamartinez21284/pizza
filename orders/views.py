@@ -74,7 +74,7 @@ def prebasket(request):
 
 
 @login_required
-def basket(request):
+def basket(request, selection): # need to update path like path("<int:flight_id>", views.flight)
   pass
 
 
