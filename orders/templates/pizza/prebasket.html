@@ -11,21 +11,29 @@
 
 {% block body %}
 
-<select name="toppings" hidden>
+<select name="toppings" hidden required>
   {% for t in toppings %}
-    <option value="{{t.id}}">{{t.name}}</option>
+    <option value="{{t.name}}">{{t.name}}</option>
   {% endfor %}
 </select>
 
   <!-- input value maps to model attribute -->
   <div hidden id="extras">
     {% for e in extras %}
-    <input type="checkbox">{{e}}</input>
+    <input type="checkbox" value="{{e}}">{{e}}</input>
     {% endfor %}
   </div>
 
+<form hidden action = "{% url 'basket' %}" method="post" id="hiddenbasket">
+  {% csrf_token %}
+  <input id="pizza_orders" name="pizza_orders" type="hidden" value="">
+  <input id="sub_orders" name="sub_orders" type="hidden" value="">
+  <input id="preselection" name="preselection" type="hidden" value="">
+</form>
 
-<form id="basket"  method="post" action = "{% url 'basket' %}">
+
+<form id="basket">
+  {% csrf_token %}
   <div class="callout">
     <h2>Step 2: Customize & confirm order</h2>
     <br>
@@ -48,6 +56,9 @@
         <th id ="total"></th>
       </tr>
     </tfoot>
+  </table>
+  <table>
+    <input type="submit" value="SUBMIT ORDER">
   </table>
   </div>
 </form>

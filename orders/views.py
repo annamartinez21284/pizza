@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect # same as above HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -32,8 +32,6 @@ def index(request):
   t = Topping.objects.all()
   for x in t:
     toppings.append(x.name)
-
-  print(f"TOPPINGS ARE: ", toppings)
 
   context = {
   # problem: SM and reg always have to be cheaper than sicilian with current html design...
@@ -74,8 +72,27 @@ def prebasket(request):
 
 
 @login_required
-def basket(request, selection): # need to update path like path("<int:flight_id>", views.flight)
-  pass
+def basket(request): # need to update path like path("<int:flight_id>", views.flight)
+  if request.method == "GET":
+    print(f"BASKET GET REQUEST")
+    return render(request, "pizza/confirmation.html")
+  if request.method == "POST":
+    print(f"BASKET POST REQUEST")
+    # json.dumps take a dictionary as input and returns a string as output, .loads: the opposite
+    # https://docs.djangoproject.com/en/3.0/ref/request-response/#attributes (request.body vs request.POST)
+    selection = json.dumps(request.POST)
+    pizza_orders = request.POST["pizza_orders"]
+    sub_orders = request.POST["sub_orders"]
+    preselection = request.POST["preselection"]
+    print(f"Preselection is", preselection) # works
+    print(f"Pizza orders are ", pizza_orders)
+    print(f"Sub orders are ", sub_orders)
+
+    # if request.is_ajax():
+    #   html = render_to_string("pizza/confirmation.html")
+    #   return HttpResponse(html)
+  context = {"test": "Testing"}
+  return HttpResponse("TEEEST") #render(request, "pizza/confirmation.html", context) - DOESN'T WORK
 
 
 @login_required

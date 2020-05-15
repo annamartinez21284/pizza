@@ -85,12 +85,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
+    var sub_orders = [];
+    var pizza_orders = [];
+    // go through elements
+    obj.forEach((e) => {
+      console.log("Dish type: ", e.dish_type);
+      // if element is sub with amount = n:
+      if (e.dish_type == "SUB") {
+        for (var i=0; i < e.amount; i++ ) {
+          // create n sub orders, each with extras (and final price) and extra count, "order" here is [dish_ID_i], e.g. [119_1], [119_2]
+          sub_orders.push({"sub_order": (e.id+"_"+(i+1)), "id": e.id, "name": e.name, "size": e.size, "price": e.price, "dish_type": e.dish_type, "extras": []});
+        }
+      };
+      if (e.dish_type == "PIZZA") {
+        for (var i=0; i < e.amount; i++) {
+          pizza_orders.push({"pizza_order": (e.id+"_"+(i+1)), "id": e.id, "name": e.name, "size": e.size, "price": e.price, "dish_type": e.dish_type, "toppings": []});
+        }
+      };
+    });
+
     // convert native JavaScript object ot JSON-string (notation)
     var jsonStr = JSON.stringify(obj);
+    var jsonStr_subs = JSON.stringify(sub_orders);
+    var jsonStr_pizzas = JSON.stringify(pizza_orders);
     localStorage.setItem('preselection', jsonStr);
-    console.log("local storage set");
+    localStorage.setItem('sub_orders', jsonStr_subs);
+    localStorage.setItem('pizza_orders', jsonStr_pizzas);
+    console.log("local storage pizza", localStorage.getItem('pizza_orders'));
+    console.log("local storage subs", localStorage.getItem('sub_orders'));
     window.location.href = '/prebasket';
-    console.log("redirecting or redirected");
     return false;
 
 
