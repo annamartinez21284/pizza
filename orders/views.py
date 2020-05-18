@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.template.loader import render_to_string
+from django.template import loader
 
 from .forms import RegisterForm, SigninForm
 from .models import *
@@ -72,27 +72,24 @@ def prebasket(request):
 
 
 @login_required
-def basket(request): # need to update path like path("<int:flight_id>", views.flight)
+def basket(request):
   if request.method == "GET":
     print(f"BASKET GET REQUEST")
     return render(request, "pizza/confirmation.html")
   if request.method == "POST":
     print(f"BASKET POST REQUEST")
-    # json.dumps take a dictionary as input and returns a string as output, .loads: the opposite
-    # https://docs.djangoproject.com/en/3.0/ref/request-response/#attributes (request.body vs request.POST)
-    selection = json.dumps(request.POST)
+
     pizza_orders = request.POST["pizza_orders"]
     sub_orders = request.POST["sub_orders"]
     preselection = request.POST["preselection"]
-    print(f"Preselection is", preselection) # works
+    print(f"Preselection is", preselection)
     print(f"Pizza orders are ", pizza_orders)
     print(f"Sub orders are ", sub_orders)
 
-    # if request.is_ajax():
-    #   html = render_to_string("pizza/confirmation.html")
-    #   return HttpResponse(html)
+    template = loader.get_template('pizza/confirmation.html')
+
   context = {"test": "Testing"}
-  return HttpResponse("TEEEST") #render(request, "pizza/confirmation.html", context) - DOESN'T WORK
+  return HttpResponse(template.render(context, request)) #render(request, "pizza/confirmation.html", context) - DOESN'T WORK
 
 
 @login_required
