@@ -81,10 +81,12 @@ function load_basket () {
           const td = document.createElement('td');
           td.innerHTML = "Choose topping(s) for Pizza #" + (i+1);
           tr.appendChild(td);
+          const div = document.createElement('div');
+          tr.appendChild(div);
           // in that row add 1 td containing 1 select menu each for each pizza (i)
           for (let j = 0; j < e.topping_count; j++) {
             const td = document.createElement('td');
-            td.setAttribute("id", ("toppings_"+e.id+"_"+(i+1)));
+            div.setAttribute("id", ("toppings_"+e.id+"_"+(i+1)));
             const toppings = document.querySelector('select');
             const select = toppings.cloneNode(true);
             select.removeAttribute("hidden");
@@ -98,8 +100,8 @@ function load_basket () {
             if (j == 4) {
               //add None (optional) to topping selection
             }
-            td.appendChild(select);
-            tr.appendChild(td);
+            div.appendChild(select);
+            tr.appendChild(div);
 
           }
         }
@@ -236,15 +238,21 @@ document.addEventListener('DOMContentLoaded', () => {
       for (var i=0; i<pizza_orders.length; i++) { // construct tr's id string
         // get toppings
         var td_id = "toppings_"+pizza_orders[i].pizza_order;
+        console.log(td_id) // FIX - same ID for every select menu
         var td = document.getElementById(td_id); // this is the <td> element containng set of topping dropdowns for 1 pizza (pizza_order)
-        var toppings = [].slice.call(td.children);
-        console.log("TOPPINGS ", toppings);
-        toppings.forEach((topping) => { // for each select menu, i.e. each topping
-          //var toppings = [];
-          var sel = topping.options[topping.selectedIndex].value;
-          pizza_orders[i].toppings.push(sel);
-        });
+        console.log(td);
 
+        // if pizza has >= 1 topping (otherwise [].slice.call() breaks)
+        if (td != null) {
+          var toppings = [].slice.call(td.children); // only gets 1st select box ugh
+          console.log("TOPPINGS ", toppings);
+          toppings.forEach((topping) => {console.log(topping)});
+          toppings.forEach((topping) => { // for each select menu, i.e. each topping
+            //var toppings = [];
+            var sel = topping.options[topping.selectedIndex].value;
+            pizza_orders[i].toppings.push(sel);
+          });
+        }
       };
       //obj.push(pizza_orders);
       console.log("Pizza_orders to be passed as JSON to DJango via hidden form: ", pizza_orders);
@@ -274,5 +282,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // r.send(data);
 
     return false;
+  };
+
+  document.querySelector('#backtomenu').onclick = () => {
+    console.log("SUBMITTED?");
+    localStorage.clear();
+    window.location.href = '/';
   };
 })

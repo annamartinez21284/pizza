@@ -17,7 +17,7 @@
           <div class="callout">
             <h2>Step 1: Select from Our Menu</h2>
             <br>
-              <table class="foodmenu" >
+              <table class="foodmenu">
 
                 <tr>
                   <th colspan="1"></th>
@@ -38,7 +38,7 @@
               	</tr>
 
                 <tr>
-                <td>Cheese</td>
+                <td style="text-align: left;">Cheese</td>
                 {% for p in 0top %}
 
                   <td class="price" id="p-{{p.id}}"> {{p.price}}</td>
@@ -53,7 +53,7 @@
                 </tr>
 
                 <tr>
-                <td>1 Topping</td>
+                <td style="text-align: left;">1 Topping</td>
                 {% for p in 1top %}
 
                   <td class="price" id="p-{{p.id}}"> {{p.price}} </td>
@@ -66,7 +66,7 @@
                 </tr>
 
                 <tr>
-                <td>2 Toppings</td>
+                <td style="text-align: left;">2 Toppings</td>
                 {% for p in 2top %}
 
                   <td class="price" id="p-{{p.id}}"> {{p.price}} </td>
@@ -79,7 +79,7 @@
                 </tr>
 
                 <tr>
-                <td>3 Toppings</td>
+                <td style="text-align: left;">3 Toppings</td>
                 {% for p in 3top %}
 
                   <td class="price"  id="p-{{p.id}}"> {{p.price}} </td>
@@ -91,7 +91,7 @@
                 </tr>
 
                 <tr>
-                <td>Special (max. 5 Toppings)</td>
+                <td style="text-align: left;">Special (max. 5 Toppings)</td>
                 {% for p in 5top %}
 
                   <td class="price" id="p-{{p.id}}"> {{p.price}} </td>
@@ -117,7 +117,7 @@
             	</table>
             <br>
 
-              <table width="100%" class="foodmenu"> <!-- why the closing /table tag ignored??? -->
+              <table width="100%" class="foodmenu">
                 <tbody>
                   <tr>
                   		<th colspan="5"><a name="subs">Subs</a></th>
@@ -129,9 +129,8 @@
                   		<td>Large</td>
                       <td>add</td>
                 	</tr>
-
+                  <!-- THIS TABLE TEMPLATE FORMAT BELOW MEANS, IS ONLY 1 SIZE , THE OTHER SIZE SHOULD BE ENTERERD IN db WITH PRICE=NONE -->
                   {% for s in subs %}
-                  <!-- THIS TABLE TEMPLATE FORMATE BELOW MEANS, IS ONLY 1 SIZE , THE OTHER SIZE SHOULD BE ENTERERD IN db WITH PRICE=NONE -->
                         {% if s.size == "S" and s.price != None %}
                         <tr>
                           <td style="text-align: left;" >{{s.name}}</td>
@@ -139,7 +138,7 @@
                           <td><input name ="{{s.name}}" id="{{s.id}}" type="number" min="0" max="10" step="1" size="2"></td>
                           <div hidden id="s-{{s.id}}">{{s.size}}</div>
                           <div hidden id="d-{{s.id}}">{{s.type}}</div>
-                          <!---->
+
                         {% elif s.price == None %}
 
 
@@ -154,7 +153,7 @@
                           <div hidden id="d-{{s.id}}">{{s.type}}</div>
                           </tr>
                         {% else %}
-                        <!---->
+
                           <td></td>
                           <td></td>
 
@@ -193,9 +192,9 @@
                     {% for ps in pastasalads %}
                       <tr>
                       	<td class="ps" style="text-align: left;" >{{ps.name}}</td>
-                      	<td class="price">{{ps.price}}</td>
-                        <td><input type="number" min="0" max="10" step="1" size="2"></td>
-                        <div hidden id="d-{{ps.dish.id}}">{{ps.type}}</div>
+                      	<td id="p-{{ps.id}}" class="price">{{ps.price}}</td>
+                        <td><input id="{{ps.id}}" name="{{ps.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                        <div hidden id="d-{{ps.id}}">{{ps.type}}</div>
                       </tr>
                     {% endfor %}
 
@@ -215,29 +214,26 @@
                           <td>add</td>
                         </tr>
                 {% for p in platters %}
-                  <tr>
-                    <!-- NEEDS FIXING _ NO MORE PRICE_LARGE AND PRICE_SMALL -->
-                		<td style="text-align: left;" >{{p.name}}</td>
-                    {% if p.size == "Small" and p.price != None %}
-                		<td class="price">{{p.price}}</td>
-                    <td><input type="number" min="0" max="10" step="1" size="2"></td>
-                    <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                    <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
-                    {% else %}
-                    <td></td>
-                    <td></td>
-                    {% endif %}
 
-                    {% if p.size == "Large" and p.price != None %}
-                		<td class="price">{{p.price}}</td>
-                    <td><input type="number" min="0" max="10" step="1" size="2"></td>
-                    <div hidden id="s-{{p.dish.id}}">{{p.size}}</div>
-                    <div hidden id="d-{{p.dish.id}}">{{p.type}}</div>
+                {% if p.size == "S" and p.price != None %}
+                  <tr>
+                    <td style="text-align: left;" >{{p.name}}</td>
+                		<td id="p-{{p.id}}" class="price">{{p.price}}</td>
+                    <td><input id="{{p.id}}" name= "{{p.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                    <div hidden id="s-{{p.id}}">{{p.size}}</div>
+                    <div hidden id="d-{{p.id}}">{{p.type}}</div>
+
+
+                    {% elif p.size == "L" and p.price != None %}
+                		<td id="p-{{p.id}}" class="price">{{p.price}}</td>
+                    <td><input id="{{p.id}}" name= "{{p.name}}" type="number" min="0" max="10" step="1" size="2"></td>
+                    <div hidden id="s-{{p.id}}">{{p.size}}</div>
+                    <div hidden id="d-{{p.id}}">{{p.type}}</div>
+                    </tr>
                     {% else %}
                     <td></td>
                     <td></td>
                     {% endif %}
-                	</tr>
                 {% endfor %}
 
                </tbody>

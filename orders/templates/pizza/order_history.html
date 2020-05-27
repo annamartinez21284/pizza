@@ -1,0 +1,24 @@
+{% extends "pizza/innerlayout.html" %}
+
+{% block order_history %}
+
+{% endblock %}
+
+{% block body %}
+<div class="callout">
+  <h2>{{title}}</h2>
+  <br>
+<ul>
+  {% for o in orders %}
+  <li>
+    <a class="listfont" href="{% url 'order_info' o.order_id %}">{{o}}</a>
+    </li>
+
+  {% endfor %}
+
+</ul>
+  <a class="navigation-left" href="{% url 'index' %}" >Return to Menu</a>
+
+</div>
+
+{% endblock %}

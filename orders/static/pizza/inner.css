@@ -17,6 +17,40 @@ td {width:auto;
 
 div.callout ul {font-size: 80%; text-align: left; }
 
+.navigation-left {
+  position: absolute;
+  left: 0px;
+  width: 300px;
+  padding: 10px;
+  color:#4d0202;
+  font-size: 18px;
+  font-weight: bold;
+  text-align:left;
+}
+
+.navigation {
+
+  padding: 10px;
+  color:#4d0202;
+  font-size: 18px;
+  font-weight: bold;
+
+}
+
+.loggedin {
+
+  padding: 10px;
+  color:#4d0202;
+  font-size: 18px;
+}
+
+.listfont {
+  padding: 10px;
+  color:#4d0202;
+  font-size: 14px;
+
+}
+
 .toppingline {
   font-size: 15px;
   background-color: #b5b35c;

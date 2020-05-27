@@ -1,8 +1,52 @@
 {% extends "pizza/innerlayout.html" %}
 
 {% block body %}
-TODO CONFIRMATION
+<div class="callout">
+  <h2>{{title}}</h2>
 
-{{test}}
+
+  <br>
+  <table width="100%" id="items" class="foodmenu">
+    <tr>
+      <th colspan="2" style="text-align:left">
+        Order #{{order.order_id}}<br>
+        Placed on: {{order.time}}
+      </th>
+
+    </tr>
+
+    {% for p in pizzas %}
+    <tr><td style="text-align:left">{{p}}</td>
+      <td>${{p.dish.price}}</td>
+    </tr>
+    {% endfor %}
+
+    {% for s in subs %}
+    <tr><td style="text-align:left">{{s}}</td>
+      <td>${{s.price}}</td>
+    </tr>
+    {% endfor %}
+
+    {% for ps in pastasalads %}
+    <tr><td style="text-align:left">{{ps}}</td>
+      <td>${{ps.dish.price}}</td>
+    </tr>
+    {% endfor %}
+
+    {% for pl in platters %}
+    <tr><td style="text-align:left">{{pl}}</td>
+      <td>${{pl.dish.price}}</td>
+    </tr>
+    {% endfor %}
+
+    <tr><td style="text-align:left"><b>TOTAL</b></td>
+      <td><b>${{order.total}}</b></td>
+    </tr>
+  </table>
+
+<a class="navigation-left" href="{% url 'index' %}" >Return to Menu</a>
+
+
+</div>
 
 {% endblock %}

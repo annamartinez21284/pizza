@@ -23,9 +23,24 @@
 
   </head>
 
-<div align="right">
-<a href="{% url 'logout' %}" name="logout"> <b> Logout - FIX MARGIN</b></a>
-</div>
+<table width="100%">
+  <tr>
+    <td align="left" name="user" class="loggedin">Logged in as {{customer}}
+      {% block order_history %}
+      {% if customer.is_staff %}
+      (Staff Member)
+      <a class="navigation" align="left" href="{% url 'order_history' %}">View Order History</a>
+      {% endif %}
+      {% endblock %}
+    </td>
+    <td align="right"><a class="navigation" align="right" href="{% url 'logout' %}" name="logout">  Log Out</a></td>
+  </tr>
+
+
+
+</table>
+
+
 
   <body class="text-center">
 

@@ -50,10 +50,21 @@ previous_selection();
 document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#preselect').onsubmit = () => {
-    // add data to send to server with request - FormData object holds user input
-    //const data = new FormData();
-    const inputs = document.querySelectorAll('input:valid'); // for some reason selects bunch of blank input fields...
+
+    const inputs = document.querySelectorAll('input[type="number"]'); // for some reason selects bunch of blank input fields...
     console.log(inputs); // prints node list OK
+
+    // ensure at least one menu item selected by customer, else stay on this site (return false)
+    var i = 0;
+    inputs.forEach(
+      function(input) {
+        i = i + input.value;
+      }
+    )
+    if (i <=0) {
+      alert("Please select at least one item.");
+      return false;
+    }
 
     var obj = [];
 
@@ -73,7 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             var sid = '#s-'.concat(input.id);
             console.log(sid);
-            var size = document.querySelector(sid).innerHTML;
+            var size;
+            try{
+              size = document.querySelector(sid).innerHTML;
+            }
+            catch {
+              size = null;
+            }
             //var size = document.querySelector('#s-'.concat(input.id)).innerHTML;
             console.log(size);
             var total = price * input.value;
@@ -82,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             obj.push({"amount": input.value, "id": input.id, "name": input.name, "size": size, "topping_count": topping_count, "price": price, "total": total, "dish_type": dish_type});
             console.log(obj);
           }
+
         }
       });
 
