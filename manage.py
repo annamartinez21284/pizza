@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 import os
 import sys
+# https://pypi.org/project/python-dotenv/
+import stripe
+from dotenv import load_dotenv
+load_dotenv()
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY') # None
+stripe.api_version = os.getenv('STRIPE_API_VERSION') # None
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pizza.settings")

@@ -1,38 +1,3 @@
-//CSRFTOKEN SETUP NOT NEEDED - ONLY FOR AJAX, BUT ENDED UP NOT USING
-
-// // Acquiring the token that will on each XHRequest be set un the X-CSRFToken header
-// function getCookie(name) {
-//     var cookieValue = null;
-//     if (document.cookie && document.cookie !== '') {
-//         var cookies = document.cookie.split(';');
-//         for (var i = 0; i < cookies.length; i++) {
-//             var cookie = cookies[i].trim();
-//             // Does this cookie string begin with the name we want?
-//             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-//                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-//                 break;
-//             }
-//         }
-//     }
-//     return cookieValue;
-// }
-// var csrftoken = getCookie('csrftoken');
-//
-// // Set the header on your AJAX request, while protecting the CSRF token from being sent to other domains
-// function csrfSafeMethod(method) {
-//     // these HTTP methods do not require CSRF protection
-//     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-// }
-// $.ajaxSetup({
-//     // beforeSend is a function which is to be run before the request is being sent, a pre-request callback function that can be used to modify the jqXHR object before it's sent
-//     beforeSend: function(xhr, settings) {
-//         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-//             xhr.setRequestHeader("X-CSRFToken", csrftoken);
-//         }
-//     }
-// });
-
-
 function load_basket () {
   if (localStorage.getItem("preselection") != null) {
     preselection = localStorage.getItem("preselection");
@@ -156,10 +121,14 @@ function calculate_total () {
   td.innerHTML = total.toFixed(2);
 }
 
+const template_title = Handlebars.compile(`<h2>Check out & Pay</h2><br>`);
+const template_dish = Handlebars.compile(`<tr><td style="text-align:left"></td><td>$</td></tr>`);
+const template_total = Handlebars.compile(`<tr><td style="text-align:left"><b>TOTAL</b></td><td><b>$[Order Total]</b></td></tr>`);
+
 
 document.addEventListener('DOMContentLoaded', () => {
   load_basket();
-  console.log("basket loaded, now calc total?");
+  console.log("basket loaded, now calc total");
   calculate_total();
 
   // select all divs (name=checkboxes) with checkbox menu
@@ -231,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem("sub_orders", jsonStr);
     };
 
-
     // REGISTER PIZZA TOPPINGS
     var pizza_orders = JSON.parse(localStorage.getItem("pizza_orders")); // why are sub orders stored in here??
     if (pizza_orders != null) {
@@ -268,18 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
     input_preselection.value = JSON.stringify(obj);
     localStorage.clear();
     document.getElementById("hiddenbasket").submit();
-
-    // AJAX ATTEMPT - NOT FUNCTIONAL HERE, SOLVED WITH HIDDEN FORM SUBMISSION INSTEAD
-    // const r = new XMLHttpRequest();
-    // r.open('POST', '/basket');
-    // const data = new FormData();
-    // data.append('selection', jsonStr);
-    // r.onload = () => {
-    //   //location = "/basket"; // or window.location.href
-    //   //localStorage.clear(); // ensure really cleared
-    // };
-    // r.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    // r.send(data);
 
     return false;
   };

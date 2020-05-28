@@ -12,17 +12,11 @@ from dotenv import load_dotenv, find_dotenv
 
 from .forms import RegisterForm, SigninForm
 from .models import *
-import os, json, datetime, stripe
+import os, json, datetime #, stripe
 #from dotenv import load_dotenv, find_dotenv
 
 # Setup Stripe python client library
-#load_dotenv(find_dotenv())
-
-stripe.api_key = os.getenv('STRIPE_SECRET_KEY') # None
-stripe.api_version = os.getenv('STRIPE_API_VERSION') # None
-print(f"API KEY & VERSION")
-print(stripe.api_key)
-print(stripe.api_version)
+#load_dotenv(find_dotenv()) # or just load_dotenv()
 
 # Create your views here.
 @login_required
