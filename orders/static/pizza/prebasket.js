@@ -60,11 +60,13 @@ function load_basket () {
             const st = document.createElement('option');
             st.setAttribute("selected", "true");
             st.setAttribute("disabled", "true");
-            st.setAttribute("value", ""); // n>ecessary so user is forced to select topping due to required HTML attribute in <select>
+            st.setAttribute("value", ""); // necessary so user is forced to select topping due to required HTML attribute in <select>
             st.innerHTML = "Select Topping " + (j+1) + ":";
             select.prepend(st);
             if (j == 4) {
               //add None (optional) to topping selection
+              select.removeAttribute("required");
+              st.innerHTML = "Free SPECIAL Topping";
             }
             div.appendChild(select);
             tr.appendChild(div);

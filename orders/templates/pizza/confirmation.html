@@ -16,32 +16,37 @@
     </tr>
 
     {% for p in pizzas %}
-    <tr><td style="text-align:left">{{p}}</td>
-      <td>${{p.dish.price}}</td>
+    <tr><td class="item">{{p}}</td>
+      <td class="price">${{p.dish.price}}</td>
     </tr>
     {% endfor %}
 
     {% for s in subs %}
-    <tr><td style="text-align:left">{{s}}</td>
-      <td>${{s.price}}</td>
+    <tr><td class="item">{{s}}</td>
+      <td class="price">${{s.price}}</td>
     </tr>
     {% endfor %}
 
     {% for ps in pastasalads %}
-    <tr><td style="text-align:left">{{ps}}</td>
-      <td>${{ps.dish.price}}</td>
+    <tr><td class="item">{{ps}}</td>
+      <td class="price">${{ps.dish.price}}</td>
     </tr>
     {% endfor %}
 
     {% for pl in platters %}
-    <tr><td style="text-align:left">{{pl}}</td>
-      <td>${{pl.dish.price}}</td>
+    <tr><td class="item">{{pl}}</td>
+      <td class="price">${{pl.dish.price}}</td>
     </tr>
     {% endfor %}
 
-    <tr><td style="text-align:left"><b>TOTAL</b></td>
+    <tr><td class="item"><b>TOTAL</b></td>
       <td><b>${{order.total}}</b></td>
     </tr>
+    {% if email %}
+    <tr></tr>
+
+    <tr><td><br>A confirmation email has been sent to {{email}}.</td></tr>
+    {% endif %}
   </table>
 
 <a class="navigation-left" href="{% url 'index' %}" >Return to Menu</a>

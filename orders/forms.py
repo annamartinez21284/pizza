@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class RegisterForm(forms.Form):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "First Name", 'autocomplete': "nope"}), label="First name", max_length=64, required=True)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Last Name", 'autocomplete': "new-password"}), label="Last name", max_length=64, required=True)
+    # the readonly tuff here below is necessary to prevent Chrome from prefilling - so annoying, can't find other way around it
     email = forms.EmailField(widget=forms.TextInput(attrs={'readonly': "readonly", 'onfocus': "this.removeAttribute('readonly')", 'class': "form-control", 'placeholder': "Email", 'autocomplete': "new-password"}), label="Email", max_length=132, required=True)
     password = forms.CharField(label="Password", max_length=32, widget=forms.PasswordInput(attrs={'class': "form-control", 'placeholder': "Password"}))
     confirmation = forms.CharField(label="Confirmation", max_length=32, widget=forms.PasswordInput(attrs={'class': "form-control", 'placeholder': "Confirm"}))

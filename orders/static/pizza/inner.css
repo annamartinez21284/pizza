@@ -61,6 +61,11 @@ div.callout ul {font-size: 80%; text-align: left; }
   padding-right: -5px;
 }
 
+.item {
+  font-size: 18px;
+  text-align: left;
+}
+
 .ps {
   width: : 150px;
 }

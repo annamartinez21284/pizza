@@ -128,8 +128,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# http://jonathansoma.com/lede/foundations-2019/classes/apis/keeping-api-keys-secret/
 load_dotenv()
 # https://data-flair.training/blogs/django-send-email/
+# https://myaccount.google.com/security?pli=1
 EMAIL_HOST =  'smtp.gmail.com'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_PORT = 587

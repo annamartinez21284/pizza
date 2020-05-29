@@ -98,8 +98,6 @@ def basket(request):
           plo = PlatterOrder(order=order, dish=dish)
           plo.save()
 
-    print(f"TOTAL SO FAR Excl Sub Extras:", total) # correct i think
-
     # 2. if pizza, create Pizza_order
     if (pizza_orders):
       for p in pizza_orders:
@@ -143,30 +141,37 @@ def basket(request):
 
     # save order ID in session
     request.session['order_id'] = order.order_id
+    # reset email_sent to False, so in next step, when custoemr submits order, he gets a confirmation email (in case he palces >1 orders)
+    request.session['email_sent'] = False
 
   # Always return an HttpResponseRedirect after successfully dealing wiht POST data. Prevents from being posted twice if user hits back/refresh
   return HttpResponseRedirect(reverse('confirmation')) #HttpResponse(template.render(context, request))
 
 @login_required
 def confirmation(request, order_id=None):
-  # Title depends on whether view is confirmation of order or order info for staff memeber
-  title = ""
 
   # if url called without parameter (i.e. from basket url as a result of a customer order)
   if order_id is None:
     order = Order.objects.get(pk=request.session['order_id'])
     title = "Step 3: Confirmation"
-    # only if url called as order confirmation, send an email
-    send_mail('Order confirmation',
-    'Your Pizza & Food Order ID %s has been placed. The total is $%s' % (order.order_id, order.total),
-    'cs50pizza@gmail.com',
-    [request.user.email],
-    fail_silently=False,)
+    email = request.user.email
+
+    # only send email once, this will prevent a sending out of emails each time browser i refreshed
+    if request.session['email_sent'] == False:
+      send_mail('Order confirmation',
+      'Your Pizza & Food Order ID %s has been placed. The total is $%s' % (order.order_id, order.total),
+      'cs50pizza@gmail.com',
+      [email],
+      fail_silently=False,)
+      print("CONF EMAIL SENT")
+      request.session['email_sent'] = True
+
 
   # if url is called by staff member with parameter to fetch order info
   else:
     order = Order.objects.get(pk=order_id)
     title = "Order Info"
+    email = None
 
   # query every DISHOrder belonging to order - then list in context
   pizzas = PizzaOrder.objects.filter(order=order.order_id)
@@ -182,7 +187,8 @@ def confirmation(request, order_id=None):
   "subs": subs,
   "pastasalads": pastasalads,
   "platters": platters,
-  "order": order
+  "order": order,
+  "email": email
   }
   return HttpResponse(template.render(context, request))
 
