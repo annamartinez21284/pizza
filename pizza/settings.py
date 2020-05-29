@@ -132,10 +132,10 @@ STATIC_URL = '/static/'
 load_dotenv()
 # https://data-flair.training/blogs/django-send-email/
 # https://myaccount.google.com/security?pli=1
-EMAIL_HOST =  'smtp.gmail.com'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_PORT = 587
+EMAIL_PORT = os.getenv('EMAIL_HOST_PORT')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')

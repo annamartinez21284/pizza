@@ -48,11 +48,9 @@ def prebasket(request):
 
   if request.method == 'POST':
   # "request.POST" returns an immutable QueryDict (sent as JSON) of items and amount pre-selected by user, hence copy() at end or dict()
-    print("THIS IS THE POST REquest- shouldn t come out now")
     return render(request, "pizza/prebasket.html")
 
   if request.method == 'GET':
-    print("THIS IS THE GET REQUEST")
     # https://stackoverflow.com/questions/12165924/access-djangos-field-choices
     # that's to access tuples of choices
     e = SubOrder.EXTRA_CHOICES
@@ -67,10 +65,8 @@ def prebasket(request):
 @login_required
 def basket(request):
   if request.method == "GET":
-    print(f"BASKET GET REQUEST - SHOULDNT COME OUT!!!!!!")
     return render(request, "pizza/confirmation.html")
   if request.method == "POST":
-    print(f"BASKET POST REQUEST")
 
     pizza_orders = json.loads(request.POST["pizza_orders"]) # these are lists it seems
     sub_orders = json.loads(request.POST["sub_orders"])
