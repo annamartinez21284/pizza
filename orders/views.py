@@ -8,23 +8,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 from django.template import loader
-from dotenv import load_dotenv, find_dotenv
+from django.core.mail import send_mail
 
 from .forms import RegisterForm, SigninForm
 from .models import *
-import os, json, datetime, stripe
-#from dotenv import load_dotenv, find_dotenv
+import os, json, datetime
 
-# Setup Stripe python client library
-#load_dotenv(find_dotenv())
-
-stripe.api_key = os.getenv('STRIPE_SECRET_KEY') # None
-stripe.api_version = os.getenv('STRIPE_API_VERSION') # None
-print(f"API KEY & VERSION")
-print(stripe.api_key)
-print(stripe.api_version)
-
-# Create your views here.
 @login_required
 def index(request):
   if request.method == 'POST':
@@ -67,7 +56,6 @@ def prebasket(request):
     # https://stackoverflow.com/questions/12165924/access-djangos-field-choices
     # that's to access tuples of choices
     e = SubOrder.EXTRA_CHOICES
-    # i[1] gets 'index 1', i.e. the 2nd item from tuple list e ((M, 'Mushrooms', P, 'Peppers', etc)
     extras = [i[1] for i in e]
     # deliver sub [some info] to check against localStorage
     context = {"toppings": Topping.objects.all(),
@@ -164,10 +152,16 @@ def confirmation(request, order_id=None):
   # Title depends on whether view is confirmation of order or order info for staff memeber
   title = ""
 
-  # if url called without parameter (i.e. from basket url as a result of customer order)
+  # if url called without parameter (i.e. from basket url as a result of a customer order)
   if order_id is None:
     order = Order.objects.get(pk=request.session['order_id'])
     title = "Step 3: Confirmation"
+    # only if url called as order confirmation, send an email
+    send_mail('Order confirmation',
+    'Your Pizza & Food Order ID %s has been placed. The total is $%s' % (order.order_id, order.total),
+    'cs50pizza@gmail.com',
+    [request.user.email],
+    fail_silently=False,)
 
   # if url is called by staff member with parameter to fetch order info
   else:
@@ -203,21 +197,6 @@ def order_history(request):
   }
 
   return render(request, "pizza/order_history.html", context)
-
-# @login_required
-# @staff_member_required
-# def order_info(request, order_id):
-#   try:
-#     order = Order.objects.get(pk=order_id)
-#
-#   except Order.DoesNotExist:
-#     raise Http404("Order does not exist")
-#
-#
-#   context = {
-#     "order": order
-#   }
-#   return render(request, "pizza/confirmation.html", context)
 
 
 @login_required
